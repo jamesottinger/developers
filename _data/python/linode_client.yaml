@@ -1,0 +1,154 @@
+name: LinodeClient
+import: from linode import LinodeClient
+desc: >
+    The <code>LinodeClient</code> class is responsible for communicating with https://api.linode.com
+constructor:
+    name: LinodeClient
+    parameters:
+        token:
+            _keyword: false
+            desc: >
+                The OAuth Token to use when talking to the the API
+        base_url:
+            _keyword: true
+            desc: Who this LinodeClient should talk to.  Set to https://api.alpha.linode.com/v4 for alpha environment.
+            _default: "'https://api.linode.com/v4'"
+    example: >
+            client = linode.LinodeClient('my-token', 'https://api.alpha.linode.com/v4')
+methods:
+    get_distributions:
+        desc: >
+            Retrieves a list of Distribution objects.  This function is filterable - include fitlers
+            in the parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            distros = client.get_distributions(linode.Distribution.vendor == "Debian")
+        returns: A list of Distribution objects
+    get_services:
+        desc: >
+            Retrieves a list of Service objects.  This function is filterable - include filters in
+            the parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            service = client.get_services(linode.Services.label == "Linode 1024")[0]
+        returns: A list of Service objects
+    get_datacenters:
+        desc: >
+            Retrieves a list of Datacenter objects.  This function is filterable - include filters
+            in the parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            dc = client.get_datacenters(linode.Datacenter.label.contains("Newark"))[0]
+        returns: A list of Datacenter objects
+    get_linodes:
+        desc: >
+            Retrives a list of Linode objects.  This function is filterable - include filters in
+            the parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            linodes = client.get_linodes(linode.Linode.group == "production")
+        returns: A list of Linode objects
+    get_stackscripts:
+        desc: >
+            Retrieves a list of StackScript objects.  This function is filterable - include filters
+            in the parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            stackscripts = client.get_stackscripts()
+        returns: A list of StackScript objects
+    get_kernels:
+        desc: >
+            Retrieves a list of Kernel objects.  This function is filterable - include filters in the
+            parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            kernels = client.get_kernels(linode.Kernel.kvm == True)
+        returns: A list of Kernel objects
+    get_zones:
+        desc: >
+            Retrieves a list of Zone objects.  This function is filterable - include filters in the
+            parameters list to retrieve only specific objects.
+        parameters:
+            '*filters':
+                desc: Any number of filters to this function.
+                _keyword: false
+        example: >
+            zones = client.get_zones()
+        returns: A list of Zone objects
+    create_linode:
+        desc: >
+            Creates a new Linode object.  Requires the <code>OAuthScopes.Linodes.create</code> scope or better.
+        parameters:
+            service:
+                desc:  A Service object which represents the Linode plan to create.  Must be a Linode service.
+                _keyword: false
+            datacenter:
+                desc: A Datacenter object which is the datacenter to create this Linode in.
+                _keyword: false
+            source:
+                desc: >
+                    Optional.  The source for this Linode (currently, only a Distribution object is accepted).  Deploys
+                    the Linode with the given source.
+                _keyword: true
+                _default: None
+            '**kwargs':
+                desc: >
+                    Any number of additional keyword arguments to pass to the POST /linodes endpoint.  These depend on the
+                    source parameter's value.  See <a href="/reference/#ep-linodes">the endpoint docs</a> for complete breakdown,
+                    but of specail note are these:<br/>
+                    <ul><li>stackscript_id - the StackScript we are deploying to this Linode (requires source to be a Distribution object).</li>
+                        <li>stackscript_udf_responses - a JSON object of values for the StackScript UDF (requires stackscript_id to be given).</li>
+                    </ul>
+                _keyword: false
+        example: |
+            serv = client.get_services(linode.Service.label == 'Linode 1024')[0]
+            dc = client.get_datacenters(linode.Datacenter.label.contains('Newark'))[0]
+            distro = client.get_distributions(linode.Distribution.vendor == 'Debian')[-1]
+            stackscirpt = linode.StackScript(client, 'stackscript_123')
+            l = client.create_linode(serv, dc, source=distro, stackscript_id=stackscript.id)
+    create_stackscript:
+            desc: >
+                Creates a StackScript object.  Requirs the <code>OAuthScopes.StackScripts.create</code> scope or better.
+            parameters:
+                label:
+                    desc: The label for this StackScript
+                    _keyword: false
+                script:
+                    desc: Either the script in its entirety, or a path to a file containing the script.
+                    _keyword: false
+                distros:
+                    desc: Either one or a list of Distribution objects this StackScript runs on.
+                    _keyword: false
+                desc:
+                    desc: The description of thise StackScript.
+                    _keyword: true
+                    _default: None
+                public:
+                    desc: Whether this StackScript should be public or not
+                    _keyword: true
+                    _default: 'False'
+                '**kwargs': 
+                    desc: >
+                        Any number of additional keyword arguments to pass to the POST /stackscripts endpoint.  For more information,
+                        see <a href="/reference/#ep-stackscripts">the endpoint docs</a> for complete breakdown.
+                    _keyword: false
+            example: |
+                pass

@@ -1,0 +1,86 @@
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        <h3>{{ include.class.name }}</h3>
+    </div>
+</div>
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        {{ include.class.desc }}
+    </div>
+    <div class='col-lg-6 right'>
+        {% highlight python %}{{ include.class.import}}{% endhighlight %}
+    </div>
+</div>
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h5>
+                        constructor: {{ include.class.constructor.name }}(
+                            {% for p in include.class.constructor.parameters %}
+                                {{ p[0] }}{% if p[1]._keyword %}={{ p[1]._default }}{% endif %}{% if forloop.last != true %},{% endif %}
+                            {% endfor %}
+                        )
+                    </h5>
+                </td>
+            </tr>
+            {% for param in include.class.constructor.parameters %}
+            <tr>
+                <td width="30%">
+                    {{ param[0] }}
+                    {% if param[1]._keyword %}
+                        <br/>
+                        <span class="text-muted">{{ param[1]._default }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ param[1].desc }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class='col-lg-6 right'>
+        {% highlight python %}{{ include.class.constructor.example }}{% endhighlight %}
+    </div>
+</div>
+{% for m in include.class.methods %}
+    <div class="row reference white">
+        <div class='col-lg-6 left'>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <h5>
+                            {{ m[0] }}(
+                                {% for p in m[1].parameters %}
+                                    {{ p[0] }}{% if p[1]._keyword %}={{ p[1]._default }}{% endif %}{% if forloop.last != true %},{% endif %}
+                                {% endfor %}
+                            )
+                        </h5>
+                        <p>{{ m[1].desc }}</p>
+                    </td>
+                </tr>
+                {% for param in m[1].parameters %}
+                <tr>
+                    <td width="30%">
+                        {{ param[0] }}
+                        {% if param[1]._keyword %}
+                            <br/>
+                            <span class="text-muted">{{ param[1]._default }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ param[1].desc }}</td>
+                </tr>
+                {% endfor %}
+                {% if m[1].returns %}
+                <tr>
+                    <td><span style="font-weight: bold">Returns:</span></td>
+                    <td>{{ m[1].returns }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+        <div class='col-lg-6 right'>
+            {% highlight python %}{{ m[1].example }}{% endhighlight %}
+        </div>
+    </div>
+{% endfor %}
