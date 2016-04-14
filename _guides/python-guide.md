@@ -19,16 +19,18 @@ the python library - if you're looking for comprehensive documentation, please r
 The official Linode python library is open-source on [github](http://github.com/Linode/python-linode-api), and can be installed through
 pypi with:
 
-```pip install linode-api```
+{% highlight shell %}
+pip install linode-api
+{% endhighlight %}
 
 In order to make requests to the API, you're going to need an OAuth Token.  If you haven't already, sign up for the [API V4 Alpha](https://alpha.linode.com),
-then login to the [Alpha Login Service](https://login.alpha.linode.com), click "Manager personal access tokens" and "Generate a
+then login to the [Alpha Login Service](https://login.alpha.linode.com), click "Manage personal access tokens" and "Generate a
 new token".  This will generate and display a valid OAuth Token with access to your entire (alpha) account, which we will use for this
 tutorial.
 
 ## Connecting to the API
 
-The Python Library connects to the Linode API V4 using the `LinodeClient` class, who expects an OAuth Token in his constructor.  In this
+The Python Library connects to the Linode API V4 using the `LinodeClient` class, which expects an OAuth Token in his constructor.  In this
 example we'll also provide a `base_url` keyword argument, since we're talking to the alpha environment.
 
 _All example code in this guide is executed in a python shell._
@@ -85,13 +87,13 @@ And that's it!  Now we've got a fresh new Linode.  Let's check it out:
 'offline'
 {% endhighlight %}
 
-That's great, but this Linode is empty, and booting it wouldn't make sense (we created it without disks or a distribution).  Let's make another Linode,
+That's great, but this Linode is empty, and booting it wouldn't make sense, since we created it without disks or a distribution.  Let's make another Linode,
 this time with Debian on it, and boot it so we can ssh in.
 
 ## Getting a Distribution
 
-We already know how to retrieve objects from the API, but this time we want something more vague - a Debian.  Which one?  What are our options?  Let's
-have a look at all of the recommended Debians:
+We already know how to retrieve objects from the API, but this time we want something more vague - a Debian template.  Which version?  What are our options?  Let's
+have a look at all of the recommended Debian templates:
 
 {% highlight python %}
 >>> for d in client.get_distributions(linode.Distribution.vendor == 'Debian', linode.Distribution.recommended == True):
@@ -101,18 +103,18 @@ Debian 7: distro_130
 Debian 8.1: distro_140
 {% endhighlight %}
 
-Great, we have some options.  We can chain filters together to run more complex searches.  Since Debian 8.1 is the newest Debian available, let's use it.
+Great, we have some options.  We can chain filters together to run more complex searches.  Since Debian 8.1 is the newest Debian template available, let's use it.
 We already have the ID, so this time we'll create the Distribution object without querying for it:
 
 {% highlight python %}
 >>> distro = linode.Distribution(client, 'distro_140')
 {% endhighlight %}
 
-We need to give the object a reference to the LinodeClient we it knows how to talk to the API to populate itself.
+We need to give the Distribution object a reference to the LinodeClient so it knows how to talk to the API to populate itself.
 
 ## Creating a Linode (with a Distribution)
 
-Now that we've got a distribution, let's make a new Linode running it!  But first, let's clean up that first Linode that we don't really need:
+Now that we have a distribution, let's make a new Linode running it!  But first, let's clean up that first Linode that we don't really need:
 
 {% highlight python %}
 >>> l.delete()
@@ -125,9 +127,9 @@ Now that that's gone, we can create a new Linode running Debian 1.8:
 >>> l, pw = client.create_linode(serv, dc, source=distro)
 {% endhighlight %}
 
-This time, we called `create_linode` with a "source" keywork argument.  The source tells the API what to deploy, and it will do "the right thing" to give
-you a working Linode.  Since a Distribution needs a root password and we didn't provide one, the client helpfully generaeted one for us and returned it as
-well.  Let's boot it and wait for it to come online:
+This time, we called `create_linode` with a "source" keywork argument.  The source tells the API what to deploy, and it will do 
+"[the right thing](/reference/#ep-linodes-POST)" to give you a working Linode.  Since a Distribution needs a root password and we didn't
+provide one, the client helpfully generaeted one for us and returned it as well.  Let's boot it and wait for it to come online:
 
 {% highlight python %}
 >>> l.boot()
@@ -142,10 +144,10 @@ True
 {% endhighlight %}
 
 `boot()` does just what you'd expect.  Once we've requested a boot, we wait for the Linode's state to be "running".  Since state is a "volatile" attribute of
-Linode, we can poll it - at fixed intervals, the value will be updated via a background API request.  Once that loop exists, we should be able to ssh in.
+a Linode, we can poll it.  At fixed intervals, the value will be updated via a background API request.  Once that loop exists, we can ssh in.
 
 
-{% highlight bash %}
+{% highlight shell %}
 >>> exit()
 $ ssh root@97.107.143.34
 The authenticity of host '97.107.143.34 (97.107.143.34)' can't be established.
