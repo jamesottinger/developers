@@ -133,6 +133,7 @@ schema:
     _description: The current state of this Linode
     _value: running
     _filterable: true
+    _pylib_volatile: true
   total_transfer:
     _type: integer
     _description: The amount of outbound traffic used this month
@@ -140,6 +141,7 @@ schema:
   updated:
     _type: datetime
     _value: 2015-10-27T09:59:26
+    _pylib_volatile: true
 enums:
   State:
     offline: The Linode is powered off

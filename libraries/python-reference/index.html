@@ -10,32 +10,64 @@ layout: base
             <div style="margin-top: 1rem">
                 <img src="https://www.linode.com/media/images/logos/standard/light/linode-logo_standard_light_medium.png"
                     alt="Linode logo" style="max-width: 100%; margin: auto; height: auto; padding: 0px 10px;" />
-                <h3 style="margin-top: 1rem; margin-bottom: 0; padding-bottom: 0; margin-left: 20px; font-size: 24px;">Python <span class="hidden-lg-down">Reference</span></h3>                    
+                <h3 style="margin-top: 1rem; margin-bottom: 0; padding-bottom: 0; margin-left: 20px; font-size: 24px;">Python <span class="hidden-lg-down">Reference</span></h3>
             </div>
             <ul class="nav nav-pills nav-stacked sticky-nav reference-nav" style="padding-top: 10px;" id="ref-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#top">Introduction</a>
                     <ul class="nav nav-pills nav-stacked">
                         <li class="nav-item">
-                            <a class="nav-link" href="#authentication">Authentication</a>
+                            <a class="nav-link" href="#oauth-workflow">OAuth Workflow</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#lists-and-objects">Lists &amp; Objects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pagination">Pagination</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#editing-objects">Editing Objects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#filtering">Filtering</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#errors">Errors</a>
+                            <a class="nav-link" href="#Core Conepts">Core Concepts</a>
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#client-objects">Client Objects</a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#LinodeLoginClient">LinodeLoginClient</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#LinodeClient">LinodeClient</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#api-objects">API Objects</a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Linode">Linode</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Config">Config</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Disk">Disk</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Datacenter">Datacenter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Distribution">Distribution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Kernel">Kernel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Service">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Zone">Zone</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ZoneRecord">ZoneRecord</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
         <div class="col-lg-10 elevated-content">
@@ -43,10 +75,10 @@ layout: base
                 <div class="col-lg-offset-6 col-lg-6 right">
                 </div>
             </div>
-            
+
             <div class="row reference white">
                 <div class="col-lg-6 left">
-                    <h1>Python Library</h1>
+                    <h1>Python Library<span id="top">&nbsp;</span></h1>
                     <p>
                         With API V4, Linode has released an official Python Library.  This document details its use and functions.
                         For a breif walkthrough of using this library, see our <a href="/guides/python-guide">Python Guide</a>.  This
@@ -56,7 +88,7 @@ layout: base
             </div>
             <div class="row reference white">
                 <div class="col-lg-6 left">
-                    <h2>Basic Setup</h2>
+                    <h2>Basic Setup<span id="basic-setup">&nbsp;</span></h2>
                     <p>
                         To install this library, run:
                     </p>
@@ -73,18 +105,18 @@ layout: base
             </div>
             <div class="row reference white">
                 <div class="col-lg-6 left">
-                    <h2>OAuth Workflow</h2>
+                    <h3>OAuth Workflow<span id="oauth-workflow">&nbsp;</span></h3>
                     <p>
                         The Python Library includes an OAuth Client tailored to Linode's OAuth 2 implementation, making it easy to allow
                         users to authenitcate against Linode and grant your applications certian rights to their account.  All communication
-                        between <a href='https://login.alpha.linode.com'>login.alpha.linode.com</a> and your application is handled by the 
+                        between <a href='https://login.alpha.linode.com'>login.alpha.linode.com</a> and your application is handled by the
                         <code>LiondeLoginClient</code>.
                     </p>
                 </div>
             </div>
             <div class="row reference white">
                 <div class='col-lg-6 left'>
-                    <h3>OAuthScopes</h3>
+                    <h4>OAuthScopes</h4>
                     <p>The <code>linode.OAuthScopes</code> object has all OAuth Scopes your application can request.  If you require access
                     to more than a user's email address and username, you will need to include OAuth Scopes in your request for authentication.
                     See the table to the right for all available OAuth Scopes.</p>
@@ -114,13 +146,206 @@ layout: base
                     </table>
                 </div>
             </div>
-            
+
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h3>Core Concepts<span id="core-concepts">&nbsp;</span></h3>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h4>Filtering</h4>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <p>
+                        All listing methods of the LinodeClient object can be "filtered", allowing you to query for only the objects you desire.
+                        Filtering uses a SQLAlchemy-inspired syntax.  All attributes that are filterable are marked with a <span class="text-muted">
+                        Filterable <i class="fa fa-filter"></i></span> icon below.
+                    </p>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <table>
+                        <tr><td><code>==</code></td><td>Fields must be exactly equal</td></tr>
+                        <tr><td><code>contains</code></td><td>Equivelant to "b in a"</td></tr>
+                        <tr><td><code>></code></td><td>Greater than (numberic)</td></tr>
+                        <tr><td><code>>=</code></td><td>Greater than or equal to (numberic)</td></tr>
+                        <tr><td><code><</code></td><td>Less than (numberic)</td></tr>
+                        <tr><td><code><=</code></td><td>Less than or equal to (numberic)</td></tr>
+                    </table>
+                </div>
+                <div class='col-lg-6 right'>
+                    <table>
+                        <tr><td>linode.Linode.group == "foobar"</td></tr>
+                        <tr><td>linode.Datacenter.label.contains("Newark")</td></tr>
+                        <tr><td>linode.Service.ram > 2048</td></tr>
+                        <tr><td>linode.Service.ram >= 2048</td></tr>
+                        <tr><td>linode.Service.monthly_price < 4000</td></tr>
+                        <tr><td>linode.Service.monthly_price <= 4000</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <p>
+                        Logical operators are provided to combine filters.  There are listed below:
+                    </p>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <table>
+                        <tr><td>linode.and_</td><td><code>&</code></td><td>
+                            Both filters must match to match.  The single character method
+                            requires the filter statements to both be in parentesis.
+                        </td></tr>
+                        <tr><td>linode.or_</td><td><code>|</code></td><td>
+                            Either filter must match to match. The single chracter method requiress
+                            the filters statements to both be in parentesis.
+                        </td></tr>
+                        <!--<tr><td>linode.not_</td><td><code>not</code></td><td>Filter must not match to match.</td></tr>-->
+                    </table>
+                </div>
+                <div class='col-lg-6 right'>
+                    <table>
+                        <tr><td>
+                            linode.and_(linode.Linode.group == "production", linode.Linode.label.contains("foo"))<br/>
+                            (linode.Linode.group == "production") & linode.Linode.label.contains("foo")
+                        </td></tr>
+                        <tr><td>
+                            linode.or_(linode.Distribution.vendor == "Debian", linode.Distribution.vendor == "Ubuntu")<br/>
+                            (linode.Distribution.vendor == "Debian") | (linode.Distribution.vendor == "Ubuntu")
+                        </td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h4>Volatile Attributes</h4>
+                    <p>
+                        Many API Objects have attributes labeled <span class="text-muted">Volatile <i class="fa fa-flash"></i></span>.
+                        Volatile attributes are refreshed when requested if they were last updated before a certian time (at time of
+                        writing, this interval is 15 seconds).  This allows you to get a current value for potentially-changing attributes
+                        when required, without having to write extra calls into your code.  All volatile attributes are labeled in the
+                        object reference below as such.
+                    </p>
+                    <p>
+                        While it <em>is</em> possible to poll on volatile attributes to detect changes, doing so without a timeout is not
+                        advised, and is not gaurenteed to ever exit.  For example, this code should <em>not</em> live in a production system:
+                    </p>
+                    {% highlight python %}
+linode.boot()
+while not linode.state == 'running':
+    pass
+{% endhighlight %}
+                    <p>
+                        This code may work most of the time, but it is not gaurenteed that <code>linode.state</code> will ever be seen as
+                        running just because you called <code>boot</code>.  For instance, another process could delete the linode and our poll
+                        may not hit during any window where the state is "running".
+                    </p>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h4>Updateing and Deleting Objects</h4>
+                    <p>
+                        All API resources are represented as objects, and all objects you own can be updated and deleted (an object you own
+                        would be a Linode or a Zone, as opposed to a Datacenter or Service, which are accessiable to you but cannot be
+                        modified or removed).
+                    </p>
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <p>
+                        Any attribute of any object that you can update will be marked <span class="text-muted">Editable <i class="fa fa-pencil"></i>
+                        </span> in the object reference below.  These attributes can be assigned as normal, and updated in the server with a call to
+                        <code>save()</code>.  For example:
+                    </p>
+                </div>
+                <div class='col-lg-6 right'>
+                    {% highlight python %}
+linode.group = "my-awesome-group"
+linode.label = "my-awesome-linode"
+linode.save()
+{% endhighlight %}
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <p>
+                        Any object you own can be removed from your account with a call to <code>delete()</code>.  This is non-reversable, so
+                        be careful calling this function.
+                    </p>
+                </div>
+                <div class='col-lg-6 right'>
+                    {% highlight python %}
+linode.delete()
+{% endhighlight %}
+                </div>
+            </div>
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h4>Pagination</h4>
+                    <p>
+                        While many API requests are paginated, all listing calls in the Python Library return <code>PaginatedLists</code> that
+                        handle loading additional pages seamlessly.  While these lists are not intended to be long-lived (i.e. do not store a
+                        PaginatedList that you expect to change, as it will not update itself), it does allow easy iterator over all resources
+                        without having to worry about when a page transition occurs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h2>Client Objects<span id="client-objects">&nbsp;</span></h2>
+                </div>
+            </div>
 
             {% assign llc = site.data.python['linode_login_client'] %}
             {% include class-details-python.html class=llc %}
 
             {% assign lc = site.data.python['linode_client'] %}
             {% include class-details-python.html class=lc %}
+
+            <div class="row reference white">
+                <div class='col-lg-6 left'>
+                    <h2>API Objects<span id="api-objects">&nbsp;</span></h2>
+                </div>
+            </div>
+            {% assign linode = site.data.python['linode'] %}
+            {% include class-details-python.html class=linode %}
+
+            {% assign config = site.data.python['linodeconfig'] %}
+            {% include class-details-python.html class=config %}
+
+            {% assign disk = site.data.python['disk'] %}
+            {% include class-details-python.html class=disk %}
+
+
+            {% assign dc = site.data.python['datacenter'] %}
+            {% include class-details-python.html class=dc %}
+
+            {% assign distribution = site.data.python['distribution'] %}
+            {% include class-details-python.html class=distribution %}
+
+            {% assign kernel = site.data.python['kernel'] %}
+            {% include class-details-python.html class=kernel %}
+
+            {% assign service = site.data.python['service'] %}
+            {% include class-details-python.html class=service %}
+
+            {% assign stackscript = site.data.python['stackscript'] %}
+            {% include class-details-python.html class=stackscript %}
+
+            {% assign zone = site.data.python['zone'] %}
+            {% include class-details-python.html class=zone %}
+
+            {% assign zonerecord = site.data.python['zonerecord'] %}
+            {% include class-details-python.html class=zonerecord %}
 
         </div>
     </div>

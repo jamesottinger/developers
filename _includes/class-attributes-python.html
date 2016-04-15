@@ -1,0 +1,36 @@
+<div class="row reference white">
+    <div class="col-lg-6 left">
+        <h5>Attributes</h5>
+    </div>
+</div>
+<div class="row reference white">
+    <div class="col-lg-6 left">
+        <table>
+            {% for attr in include.obj.schema | concat: include.pyattrs %}
+                <tr>
+                    <td width="30%">
+                        {{ attr[0] }}        
+                    </td>
+                    <td>
+                        {{ attr[1]._description }}
+                        {% if attr[1]._editable and include.editable != true %}
+                        <span class="text-muted pull-right" title="Editable">
+                            <i class="fa fa-pencil"></i>
+                        </span>
+                        {% endif %}
+                        {% if attr[1]._filterable %}
+                        <span class="text-muted pull-right" title="Filterable">
+                            <i class="fa fa-filter"></i>
+                        </span>
+                        {% endif %}
+                        {% if attr[1]._pylib_volatile %}
+                        <span class="text-muted pull-right" title="Volatile">
+                            <i class="fa fa-flash"></i>
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>

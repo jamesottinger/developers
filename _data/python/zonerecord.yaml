@@ -1,0 +1,19 @@
+name: ZoneRecord
+import: from linode import ZoneRecord
+_object: zonerecord
+desc: >
+    A Zone record.
+constructor:
+    name: ZoneRecord
+    parameters:
+        client:
+            _keyword: false
+            desc: The <code>LinodeClient</code> this object will use to communicate with the API.
+        id:
+            _keyword: false
+            desc: This ZoneRecord's ID.
+        parent_id:
+            _keyword: false
+            desc: The <code>Linode</code> object's ID who owns this ZoneRecord.
+    example: >
+        zonerecord = linode.Datacenter(client, "zonerecord_6")
