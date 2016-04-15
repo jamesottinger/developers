@@ -32,6 +32,7 @@ schema:
   distributions:
     _description: A list of distributions this StackScript is compatible with
     _type: array
+    _editable: true
     _subtype: distribution
     _filterable: true
     _value:
@@ -58,8 +59,11 @@ schema:
     _type: integer
     _value: 150
   is_public:
-    _description: Whether this StackScript is available for anyone to use
+    _description: >
+      Publicize StackScript in the Linode StackScript library.
+      Note that StackScripts cannot be changed to private after they have been public.
     _type: boolean
+    _editable: true
     _value: true
     _filterable: true
   created:
@@ -70,9 +74,10 @@ schema:
     _description: When the StackScript was last updated
     _type: datetime
     _value: "2015-10-15T10:02:01"
-  revision_note:
-    _description: The most recent note about what was changed
+  rev_note:
+    _description: The most recent note about what was changed for this revision.
     _type: string
+    _editable: true
     _value: "Initial import"
   script:
     _description: The actual script body to be executed
