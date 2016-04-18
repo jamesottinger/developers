@@ -31,14 +31,14 @@ methods:
                 _default: None
             redirect_url:
                 _keyword: true
-                desc: The URI to redirect successful auths to.  If not provided, uses OAuth Client's default
+                desc: The URI to redirect successful auths to.  If not provided, uses OAuth Client's default.
                 _default: None
         example: >
             login_client.generate_login_url(scopes=linode.OAuthScopes.all)
         returns: A URL to send users to for authentication with login.linode.com
     finish_oauth:
         desc: >
-            Trades a temporary access code for an OAuth token.
+            Trades a temporary access code for an OAuth token
         parameters:
             code:
                 _keyword: false

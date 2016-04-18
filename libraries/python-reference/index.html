@@ -67,7 +67,6 @@ layout: base
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </div>
         <div class="col-lg-10 elevated-content">
@@ -98,7 +97,7 @@ layout: base
                         set of credentials can be generated at <a href="https://login.alpha.linode.com">login.alpha.linode.com</a>
                         and used where appropriate.  A Personal Access Token is used for a single-user application (where all Linodes
                         you intend to manage belong to the account you control), a Client ID and Client Secret are used in multi-user
-                        applications (where a user will login to your application with Linode and grant you access to some of their
+                        applications (where a user will log in to your application with Linode and grant you access to some of the
                         account's resources).
                     </p>
                 </div>
@@ -117,7 +116,7 @@ layout: base
             <div class="row reference white">
                 <div class='col-lg-6 left'>
                     <h4>OAuthScopes</h4>
-                    <p>The <code>linode.OAuthScopes</code> object has all OAuth Scopes your application can request.  If you require access
+                    <p>The <code>linode.OAuthScopes</code> object contains all OAuth Scopes your application can request.  If you require access
                     to more than a user's email address and username, you will need to include OAuth Scopes in your request for authentication.
                     See the table to the right for all available OAuth Scopes.</p>
                 </div>
@@ -160,7 +159,7 @@ layout: base
             <div class="row reference white">
                 <div class='col-lg-6 left'>
                     <p>
-                        All listing methods of the LinodeClient object can be "filtered", allowing you to query for only the objects you desire.
+                        All listing methods of the LinodeClient object can be "filtered," allowing you to query for only the objects you desire.
                         Filtering uses a SQLAlchemy-inspired syntax.  All attributes that are filterable are marked with a <span class="text-muted">
                         Filterable <i class="fa fa-filter"></i></span> icon below.
                     </p>
@@ -191,7 +190,7 @@ layout: base
             <div class="row reference white">
                 <div class='col-lg-6 left'>
                     <p>
-                        Logical operators are provided to combine filters.  There are listed below:
+                        Logical operators are provided to combine filters.  They are listed below:
                     </p>
                 </div>
             </div>
@@ -199,12 +198,12 @@ layout: base
                 <div class='col-lg-6 left'>
                     <table>
                         <tr><td>linode.and_</td><td><code>&</code></td><td>
-                            Both filters must match to match.  The single character method
-                            requires the filter statements to both be in parenthesis.
+                            Both filters must match for the composite filter to match.  The single character method
+                            requires the filter statements to both be in parenthesis.<br/>&nbsp;
                         </td></tr>
                         <tr><td>linode.or_</td><td><code>|</code></td><td>
-                            Either filter must match to match. The single character method requires
-                            the filters statements to both be in parenthesis.
+                            Either filter must match for the composite filter to match. The single character method requires
+                            the filters statements to both be in parenthesis.<br/>&nbsp;
                         </td></tr>
                         <!--<tr><td>linode.not_</td><td><code>not</code></td><td>Filter must not match to match.</td></tr>-->
                     </table>
@@ -212,11 +211,11 @@ layout: base
                 <div class='col-lg-6 right'>
                     <table>
                         <tr><td>
-                            linode.and_(linode.Linode.group == "production", linode.Linode.label.contains("foo"))<br/>
+                            linode.and_(linode.Linode.group == "production", linode.Linode.label.contains("foo"))<br/><br/>
                             (linode.Linode.group == "production") & linode.Linode.label.contains("foo")
                         </td></tr>
                         <tr><td>
-                            linode.or_(linode.Distribution.vendor == "Debian", linode.Distribution.vendor == "Ubuntu")<br/>
+                            linode.or_(linode.Distribution.vendor == "Debian", linode.Distribution.vendor == "Ubuntu")<br/><br/>
                             (linode.Distribution.vendor == "Debian") | (linode.Distribution.vendor == "Ubuntu")
                         </td></tr>
                     </table>
@@ -293,7 +292,7 @@ linode.delete()
                     <p>
                         While many API requests are paginated, all listing calls in the Python Library return <code>PaginatedLists</code> that
                         handle loading additional pages seamlessly.  While these lists are not intended to be long-lived (i.e. do not store a
-                        PaginatedList that you expect to change, as it will not update itself), it does allow easy iterator over all resources
+                        PaginatedList that you expect to change, as it will not update itself), it does allow easy iteration over all resources
                         without having to worry about when a page transition occurs.
                     </p>
                 </div>

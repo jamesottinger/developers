@@ -2,7 +2,7 @@ name: Linode
 import: from linode import Linode
 _object: linodes
 desc: >
-    A Linode.  Create linodes with <code>LinodeClient.create_linode</code>.  This class holds all attributes of a Linode,
+    A Linode.  Create linodes with <code>LinodeClient.create_linode</code>.  This class holds all attributes of a Linode
     and methods for managing it.
 _pylib_attributes:
     disks:
@@ -85,7 +85,7 @@ methods:
                 _default: None
             disks:
                 _keyword: true
-                desc: A list of <code>Disks</code> for this Config.  The first disk is sda, the second sdb, and so on.
+                desc: A list of <code>Disks</code> for this Config.  The first disk is sda, the second sdb, etc.
                 _default: None
             '**kwargs':
                 _keyword: false
@@ -110,7 +110,7 @@ methods:
                 _default: None
             filesystem:
                 _keyword: true
-                desc: The type of filesystem to deploy to the new disk (ex 'ext4', 'swap').  If None, creates a raw disk.
+                desc: The type of filesystem to deploy to the new disk (e.g. 'ext4', 'swap').  If None, creates a raw disk.
                 _default: None
             read_only:
                 _keyword: true
@@ -137,8 +137,8 @@ methods:
             root_key:
                 _keyword: true
                 desc: >
-                    The ssh public key to include on the disk's filesystem's authorized_keys file for the root user.  Only include if a
-                    distribution was giben as well.
+                    The ssh public key to include in the disk's filesystem's authorized_keys file for the root user.  Only include if a
+                    distribution was given as well.
                 _default: None
             stackscript:
                 _keyword: true
@@ -169,13 +169,13 @@ methods:
             root_pass:
                 _keyword: true
                 desc: >
-                    The password for the root user on this disk's filesystem.  Only include if you are including a distribution as well.
+                    The password for the root user in this disk's filesystem.  Only include if you are including a distribution as well.
                     If a distribution is given and no root_pass is provided, one will be generated and returned along with the Disk.
                 _default: None
             root_key:
                 _keyword: true
                 desc: >
-                    The ssh public key to include on the disk's filesystem's authorized_keys file for the root user.  Only include if a
+                    The ssh public key to include in the disk's filesystem's authorized_keys file for the root user.  Only include if a
                     distribution was giben as well.
                 _default: None
             stackscript:

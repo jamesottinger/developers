@@ -22,7 +22,7 @@ methods:
             in the parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             distros = client.get_distributions(linode.Distribution.vendor == "Debian")
@@ -33,7 +33,7 @@ methods:
             the parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             service = client.get_services(linode.Services.label == "Linode 1024")[0]
@@ -44,7 +44,7 @@ methods:
             in the parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             dc = client.get_datacenters(linode.Datacenter.label.contains("Newark"))[0]
@@ -55,7 +55,7 @@ methods:
             the parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             linodes = client.get_linodes(linode.Linode.group == "production")
@@ -66,7 +66,7 @@ methods:
             in the parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             stackscripts = client.get_stackscripts()
@@ -77,7 +77,7 @@ methods:
             parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             kernels = client.get_kernels(linode.Kernel.kvm == True)
@@ -88,20 +88,20 @@ methods:
             parameters list to retrieve only specific objects.
         parameters:
             '*filters':
-                desc: Any number of filters to this function.
+                desc: Any number of filters to this function
                 _keyword: false
         example: >
             zones = client.get_zones()
         returns: A list of Zone objects
     create_linode:
         desc: >
-            Creates a new Linode object.  Requires the <code>OAuthScopes.Linodes.create</code> scope or better.
+            Creates a new Linode object.  Requires the <code>OAuthScopes.Linodes.create</code> scope.
         parameters:
             service:
                 desc:  A Service object which represents the Linode plan to create.  Must be a Linode service.
                 _keyword: false
             datacenter:
-                desc: A Datacenter object which is the datacenter to create this Linode in.
+                desc: A Datacenter object which is the datacenter in which this Linode will be created
                 _keyword: false
         example: |
             serv = client.get_services(linode.Service.label == 'Linode 1024')[0]
@@ -110,14 +110,14 @@ methods:
         returns: A Linode object
     create_linode*:
         desc: >
-            Craetes a new Linode object and deploys a Distribution to it.  Requires <code>OAuthScopes.Linodes.create</code>
-            scope or better.
+            Creates a new Linode object and deploys a Distribution to it.  Requires <code>OAuthScopes.Linodes.create</code>
+            scope.
         parameters:
             service:
                 desc:  A Service object which represents the Linode plan to create.  Must be a Linode service.
                 _keyword: false
             datacenter:
-                desc: A Datacenter object which is the datacenter to create this Linode in.
+                desc: A Datacenter object which is the datacenter in which this Linode will be created
                 _keyword: false
             source:
                 desc: >
@@ -127,23 +127,23 @@ methods:
             '**kwargs':
                 desc: >
                     Any number of additional keyword arguments to pass to the POST /linodes endpoint.  These depend on the
-                    source parameter's value.  See <a href="/reference/#ep-linodes-POST">the endpoint docs</a> for more information.
+                    source parameter's value.  See the <a href="/reference/#ep-linodes-POST">endpoint docs</a> for more information.
                 _keyword: false
         example: |
             serv = client.get_services(linode.Service.label == 'Linode 1024')[0]
             dc = client.get_datacenters(linode.Datacenter.label.contains('Newark'))[0]
             distro = client.get_distributions(linode.Distribution.vendor == 'Debian')[-1]
             l = client.create_linode(serv, dc, source=distro)
-        returns: A tuple containin the new Linode object and the generated root password for the Linode
+        returns: A tuple containing the new Linode object and generated root password for the Linode
     create_linode**:
         desc: >
-            Creates a new Linode object from a StackScript.  Requires the <code>OAuthScopes.Linodes.create</code> scope or better.
+            Creates a new Linode object from a StackScript.  Requires the <code>OAuthScopes.Linodes.create</code> scope.
         parameters:
             service:
                 desc:  A Service object which represents the Linode plan to create.  Must be a Linode service.
                 _keyword: false
             datacenter:
-                desc: A Datacenter object which is the datacenter to create this Linode in.
+                desc: A Datacenter object which is the datacenter in which this Linode will be created
                 _keyword: false
             stackscript_id:
                 desc: >
@@ -163,7 +163,7 @@ methods:
             '**kwargs':
                 desc: >
                     Any number of additional keyword arguments to pass to the POST /linodes endpoint.  These depend on the
-                    source parameter's value.  See <a href="/reference/#ep-linodes-POST">the endpoint docs</a> more information.
+                    source parameter's value.  See the <a href="/reference/#ep-linodes-POST">endpoint docs</a> more information.
                 _keyword: false
         example: |
             serv = client.get_services(linode.Service.label == 'Linode 1024')[0]
@@ -174,29 +174,29 @@ methods:
         returns: A Linode object
     create_stackscript:
             desc: >
-                Creates a StackScript object.  Requirs the <code>OAuthScopes.StackScripts.create</code> scope or better.
+                Creates a StackScript object.  Requirs the <code>OAuthScopes.StackScripts.create</code> scope.
             parameters:
                 label:
                     desc: The label for this StackScript
                     _keyword: false
                 script:
-                    desc: Either the script in its entirety, or a path to a file containing the script.
+                    desc: Either the script in its entirety, or a path to a file containing the script
                     _keyword: false
                 distros:
-                    desc: Either one or a list of Distribution objects this StackScript runs on.
+                    desc: Either one or a list of Distribution objects this StackScript runs on
                     _keyword: false
                 desc:
-                    desc: The description of thise StackScript.
+                    desc: The description of this StackScrip
                     _keyword: true
                     _default: None
                 public:
-                    desc: Whether this StackScript should be public or not
+                    desc: Whether or not this StackScript should be public
                     _keyword: true
                     _default: 'False'
                 '**kwargs':
                     desc: >
                         Any number of additional keyword arguments to pass to the POST /stackscripts endpoint.  For more information,
-                        see <a href="/reference/#ep-stackscripts-POST">the endpoint docs</a> for complete breakdown.
+                        see the <a href="/reference/#ep-stackscripts-POST">endpoint docs</a> for complete breakdown.
                     _keyword: false
             example: |
                 distros = client.get_distributions(linode.or_(linode.Distribution.vendor == 'Ubuntu', linode.Distribution.vendor == 'Debian'))
@@ -205,7 +205,7 @@ methods:
         desc: Creates a new Zone record.
         parameters:
             zone:
-                desc: The zone we are managing.
+                desc: The zone we are managing
                 _keyword: false
             master:
                 desc: Is this the master zone record?
@@ -214,7 +214,7 @@ methods:
             '**kwargs':
                 desc: >
                     Any number of additional keyword arguments to pass to the POST /zones endpoint.  For more information, see
-                    <a href="/reference/#ep-zones-POST">the endpoint docs</a> for complete breakdown.
+                    the <a href="/reference/#ep-zones-POST">endpoint docs</a> for complete breakdown.
                 _keyword: false
         example: |
             z = client.create_zone('example.org')

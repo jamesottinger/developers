@@ -36,12 +36,12 @@ methods:
         parameters:
             record_type:
                 _keyword: false
-                desc: The type of record to create (A, AAA, etc)
+                desc: The type of record to create (A, AAA, etc.)
             '**kwargs':
                 _keyword: false
                 desc: >
                     Any number of keyword arguments to send to the POST /zones/zone_123 endpoint.  See
-                    <a href="/reference#ep-zones-records-POST">the endpoint docs</a> for more information.
+                    the <a href="/reference#ep-zones-records-POST">endpoint docs</a> for more information.
         example: |
             zone_record = zone.create_record('AAA')
         returns: A new ZoneRecord object
