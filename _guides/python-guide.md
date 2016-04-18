@@ -12,7 +12,7 @@ table {
 </style>
 
 With the release of API 4, Linode has also released an official python library.  This guide is a simple introduction to working with
-the python library - if you're looking for comprehensive documentation, please refer to the [Python Library Reference]().
+the python library - if you're looking for comprehensive documentation, please refer to the [Python Library Reference](/libraries/python-reference).
 
 ## Getting Started
 
@@ -65,7 +65,7 @@ can just ask for it by filtering the service list:
 >>> serv = client.get_services(linode.Service.label == "Linode 1024")[0]
 {% endhighlight %}
 
-The Python Library uses SQLAlchemy-like filtering syntax - any field [marked filterable]() can be searched by in this manner.  Since we
+The Python Library uses SQLAlchemy-like filtering syntax - any field [marked filterable](/libraries/python-reference/#api-objects) can be searched by in this manner.  Since we
 searched a listing endpoint, we need to take the first result (which in this case is the only one) of the returned list.
 
 ## Making a Linode
@@ -167,6 +167,6 @@ root@localhost:~#
 
 ## Further Reading
 
-Now that you've had an overview of the features and concepts in the Python Library, check out the [Python Library Reference]() for in-depth documentation,
+Now that you've had an overview of the features and concepts in the Python Library, check out the [Python Library Reference](/libraries/python-reference) for in-depth documentation,
 or look at the [Install on Linode sample project](https://github.com/linode/python-linode-api/tree/master/examples/install-on-linode) for an example multi-user
 application using the Library.
