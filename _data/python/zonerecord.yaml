@@ -17,3 +17,16 @@ constructor:
             desc: The <code>Linode</code> object's ID who owns this ZoneRecord.
     example: >
         zonerecord = linode.Datacenter(client, "zonerecord_6")
+methods:
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this ZoneRecord to the API, saving them.
+        example: |
+            record.save()
+        returns: True if the save succeeded
+    delete:
+        desc: >
+            Deletes this ZoneRecord.  This is not reversable.
+        example:
+            record.delete()
+        returns: True if the delete succueeded.

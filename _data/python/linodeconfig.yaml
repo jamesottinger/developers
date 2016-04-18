@@ -19,3 +19,16 @@ constructor:
             desc: The <code>Linode</code> object's ID who owns this Config.
     example: >
         config = linode.Datacenter(client, "config_6")
+methods:
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this Config to the API, saving them.
+        example: |
+            config.save()
+        returns: True if the save succeeded
+    delete:
+        desc: >
+            Deletes this Config.  This is not reversable.
+        example:
+            config.delete()
+        returns: True if the delete succueeded.

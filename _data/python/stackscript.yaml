@@ -14,3 +14,10 @@ constructor:
             desc: This StackScript's ID.
     example: >
         stackscript = linode.StackScript(client, "stackscript_6")
+methods:
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this StackScript to the API, saving them.
+        example: |
+            stackscript.save()
+        returns: True if the save succeeded

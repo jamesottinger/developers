@@ -19,6 +19,18 @@ constructor:
     example: >
         zone = linode.Zone(client, "zone_6")
 methods:
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this Zone to the API, saving them.
+        example: |
+            zone.save()
+        returns: True if the save succeeded
+    delete:
+        desc: >
+            Deletes this Zone from your account.  This is not reversable.
+        example:
+            zone.delete()
+        returns: True if the delete succueeded.
     create_record:
         desc: Creates a new ZoneRecord for this Zone
         parameters:

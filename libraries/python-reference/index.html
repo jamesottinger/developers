@@ -20,7 +20,7 @@ layout: base
                             <a class="nav-link" href="#oauth-workflow">OAuth Workflow</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#Core Conepts">Core Concepts</a>
+                            <a class="nav-link" href="#core-concepts">Core Concepts</a>
                         </li>
                     </ul>
                 </li>
@@ -81,7 +81,7 @@ layout: base
                     <h1>Python Library<span id="top">&nbsp;</span></h1>
                     <p>
                         With API V4, Linode has released an official Python Library.  This document details its use and functions.
-                        For a breif walkthrough of using this library, see our <a href="/guides/python-guide">Python Guide</a>.  This
+                        For a brief walkthrough of using this library, see our <a href="/guides/python-guide">Python Guide</a>.  This
                         package is hosted <a href="https://github.com/linode/python-linode-api">on Github</a>.
                     </p>
                 </div>
@@ -108,7 +108,7 @@ layout: base
                     <h3>OAuth Workflow<span id="oauth-workflow">&nbsp;</span></h3>
                     <p>
                         The Python Library includes an OAuth Client tailored to Linode's OAuth 2 implementation, making it easy to allow
-                        users to authenitcate against Linode and grant your applications certian rights to their account.  All communication
+                        users to authenticate against Linode and grant your applications certain rights to their account.  All communication
                         between <a href='https://login.alpha.linode.com'>login.alpha.linode.com</a> and your application is handled by the
                         <code>LiondeLoginClient</code>.
                     </p>
@@ -130,17 +130,17 @@ layout: base
                         </tr>
                         <tr>
                             <td>Linodes</td>
-                            <td>Requests access to Linodes.  Specifiy Linodes.view, Linodes.create, Linodes.modify, Linodes.delete, or Linodes.all.
+                            <td>Requests access to Linodes.  Specify Linodes.view, Linodes.create, Linodes.modify, Linodes.delete, or Linodes.all.
                                 Requesting one scope grants all previous scopes as well.</td>
                         </tr>
                         <tr>
                             <td>Zones</td>
-                            <td>Requests access to Zones.  Specifiy Zones.view, Zones.create, Zones.modify, Zones.delete, or Zones.all.
+                            <td>Requests access to Zones.  Specify Zones.view, Zones.create, Zones.modify, Zones.delete, or Zones.all.
                                 Requesting one scope grants all previous scopes as well.</td>
                         </tr>
                         <tr>
                             <td>StackScripts</td>
-                            <td>Requests access to StackScripts.  Specifiy StackScripts.view, StackScripts.create, StackScripts.modify, StackScripts.delete, or StackScripts.all.
+                            <td>Requests access to StackScripts.  Specify StackScripts.view, StackScripts.create, StackScripts.modify, StackScripts.delete, or StackScripts.all.
                                 Requesting one scope grants all previous scopes as well.</td>
                         </tr>
                     </table>
@@ -170,11 +170,11 @@ layout: base
                 <div class='col-lg-6 left'>
                     <table>
                         <tr><td><code>==</code></td><td>Fields must be exactly equal</td></tr>
-                        <tr><td><code>contains</code></td><td>Equivelant to "b in a"</td></tr>
-                        <tr><td><code>></code></td><td>Greater than (numberic)</td></tr>
-                        <tr><td><code>>=</code></td><td>Greater than or equal to (numberic)</td></tr>
-                        <tr><td><code><</code></td><td>Less than (numberic)</td></tr>
-                        <tr><td><code><=</code></td><td>Less than or equal to (numberic)</td></tr>
+                        <tr><td><code>contains</code></td><td>Equivalent to "b in a"</td></tr>
+                        <tr><td><code>></code></td><td>Greater than (numeric)</td></tr>
+                        <tr><td><code>>=</code></td><td>Greater than or equal to (numeric)</td></tr>
+                        <tr><td><code><</code></td><td>Less than (numeric)</td></tr>
+                        <tr><td><code><=</code></td><td>Less than or equal to (numeric)</td></tr>
                     </table>
                 </div>
                 <div class='col-lg-6 right'>
@@ -200,11 +200,11 @@ layout: base
                     <table>
                         <tr><td>linode.and_</td><td><code>&</code></td><td>
                             Both filters must match to match.  The single character method
-                            requires the filter statements to both be in parentesis.
+                            requires the filter statements to both be in parenthesis.
                         </td></tr>
                         <tr><td>linode.or_</td><td><code>|</code></td><td>
-                            Either filter must match to match. The single chracter method requiress
-                            the filters statements to both be in parentesis.
+                            Either filter must match to match. The single character method requires
+                            the filters statements to both be in parenthesis.
                         </td></tr>
                         <!--<tr><td>linode.not_</td><td><code>not</code></td><td>Filter must not match to match.</td></tr>-->
                     </table>
@@ -227,14 +227,14 @@ layout: base
                     <h4>Volatile Attributes</h4>
                     <p>
                         Many API Objects have attributes labeled <span class="text-muted">Volatile <i class="fa fa-flash"></i></span>.
-                        Volatile attributes are refreshed when requested if they were last updated before a certian time (at time of
+                        Volatile attributes are refreshed when requested if they were last updated before a certain time (at time of
                         writing, this interval is 15 seconds).  This allows you to get a current value for potentially-changing attributes
                         when required, without having to write extra calls into your code.  All volatile attributes are labeled in the
                         object reference below as such.
                     </p>
                     <p>
                         While it <em>is</em> possible to poll on volatile attributes to detect changes, doing so without a timeout is not
-                        advised, and is not gaurenteed to ever exit.  For example, this code should <em>not</em> live in a production system:
+                        advised, and is not guaranteed to ever exit.  For example, this code should <em>not</em> live in a production system:
                     </p>
                     {% highlight python %}
 linode.boot()
@@ -242,7 +242,7 @@ while not linode.state == 'running':
     pass
 {% endhighlight %}
                     <p>
-                        This code may work most of the time, but it is not gaurenteed that <code>linode.state</code> will ever be seen as
+                        This code may work most of the time, but it is not guaranteed that <code>linode.state</code> will ever be seen as
                         running just because you called <code>boot</code>.  For instance, another process could delete the linode and our poll
                         may not hit during any window where the state is "running".
                     </p>
@@ -250,10 +250,10 @@ while not linode.state == 'running':
             </div>
             <div class="row reference white">
                 <div class='col-lg-6 left'>
-                    <h4>Updateing and Deleting Objects</h4>
+                    <h4>Updating and Deleting Objects</h4>
                     <p>
                         All API resources are represented as objects, and all objects you own can be updated and deleted (an object you own
-                        would be a Linode or a Zone, as opposed to a Datacenter or Service, which are accessiable to you but cannot be
+                        would be a Linode or a Zone, as opposed to a Datacenter or Service, which are accessible to you but cannot be
                         modified or removed).
                     </p>
                 </div>
@@ -263,7 +263,7 @@ while not linode.state == 'running':
                     <p>
                         Any attribute of any object that you can update will be marked <span class="text-muted">Editable <i class="fa fa-pencil"></i>
                         </span> in the object reference below.  These attributes can be assigned as normal, and updated in the server with a call to
-                        <code>save()</code>.  For example:
+                        <code>save()</code>.
                     </p>
                 </div>
                 <div class='col-lg-6 right'>
@@ -277,7 +277,7 @@ linode.save()
             <div class="row reference white">
                 <div class='col-lg-6 left'>
                     <p>
-                        Any object you own can be removed from your account with a call to <code>delete()</code>.  This is non-reversable, so
+                        Any object you own can be removed from your account with a call to <code>delete()</code>.  This is non-reversible, so
                         be careful calling this function.
                     </p>
                 </div>

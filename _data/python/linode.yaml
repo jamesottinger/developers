@@ -21,7 +21,7 @@ constructor:
             _keyword: false
             desc: This Linode's ID.
     example: >
-        linode = linode.Linode(client, "linode_6")
+        l = linode.Linode(client, "linode_6")
 methods:
     boot:
         desc: >
@@ -35,27 +35,41 @@ methods:
                     or last booted config.
                 _default: None
         example: >
-            linode.boot()
+            l.boot()
         returns: True if boot request succeeded
     shutdown:
         desc: >
              Requests a shutdown for this Linode.  This function returns immediatley following the API request,
              you should check the <code>state</code> attribute to see when the Linode has actually come offline.
         example: >
-            linode.shutdown()
+            l.shutdown()
         returns: True if shutdown request succeeded
     reboot:
         desc: >
             Requests a reboot for ths Linode.  This function returns immediately following the API request,
             you should check the <code>state</code> attribute to see when the Linode has actaully rebooted.
         example: >
-            linode.reboot()
+            l.reboot()
         returns: True if the reboot request succeeded
     generate_root_password:
         desc: >
             Generates a random password to assign to the root account on the Linode.  This is used during deployment
             of a new Linode from a <code>Distribution</code> to create a root password if one was not provided.
+        example: |
+            linode.Linode.generate_root_password()
         returns: A 32-character password.
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this Linode to the API, saving them.
+        example: |
+            l.save()
+        returns: True if the save succeeded
+    delete:
+        desc: >
+            Deletes this Linode from your account.  This is not reversable.
+        example:
+            l.delete()
+        returns: True if the delete succueeded.
     create_config:
         desc: >
             Creates a new <code>Config</code> object for this Linode.  These do not need to be created manually - deploy
@@ -81,7 +95,7 @@ methods:
                     of all accepted values.
         example: |
             kernel = client.get_kernels(linode.Kernel.kvm == True, linode.Kernel.label.contains("4"))
-            config = linode.create_config(kernel, disks=[d for d in linode.disks])
+            config = l.create_config(kernel, disks=[d for d in linode.disks])
         returns: The new Config object
     create_disk:
         desc: >
@@ -103,7 +117,7 @@ methods:
                 desc: If this disk should be created read-only
                 _default: 'False'
         example: |
-            disk = linode.create_disk(2048, label='other_disk' filesystem='ext4')
+            disk = l.create_disk(2048, label='other_disk' filesystem='ext4')
         returns: A new Disk object
     create_disk*:
         desc: >
@@ -135,7 +149,7 @@ methods:
                 desc: Any number of additional keyword arguments, which will be sent as responses to the StackScript's user-defined fields.
         example: |
             s = client.get_stackscripts(linode.StackScript.label == 'my-aweomse-stackscript')[0]
-            disk = linode.create_disk(2048, distribution=s.distributions[0], stackscript=s, udf_value="foobar")
+            disk = l.create_disk(2048, distribution=s.distributions[0], stackscript=s, udf_value="foobar")
         returns: A tuple containing a new Disk object and the generated password for the root user on the new filesystem
     create_disk**:
         desc: >
@@ -173,5 +187,5 @@ methods:
                 desc: Any number of additional keyword arguments, which will be sent as responses to the StackScript's user-defined fields.
         example: |
             s = client.get_stackscripts(linode.StackScript.label == 'my-aweomse-stackscript')[0]
-            disk = linode.create_disk(2048, distribution=s.distributions[0], root_pass='hunter7')
+            disk = l.create_disk(2048, distribution=s.distributions[0], root_pass='hunter2')
         returns: A new Disk object

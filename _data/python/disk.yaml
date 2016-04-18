@@ -19,3 +19,16 @@ constructor:
             desc: The <code>Linode</code> object's ID who owns this Disk.
     example: >
         disk = linode.Datacenter(client, "disk_6", "linode_123")
+methods:
+    save:
+        desc: >
+            Sends any local changes to Editable fields of this Disk to the API, saving them.
+        example: |
+            disk.save()
+        returns: True if the save succeeded
+    delete:
+        desc: >
+            Deletes this Disk.  This is not reversable.
+        example:
+            disk.delete()
+        returns: True if the delete succueeded.
