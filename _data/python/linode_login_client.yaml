@@ -9,17 +9,17 @@ constructor:
         client_id:
             _keyword: false
             desc: >
-                 The Client ID generated from https://login.alpha.linode.com
+                 The Client ID generated from the login server.
         client_secret:
             _keyword: false
             desc: >
-                 The Client Secret generated from https://login.alpha.linode.com
+                 The Client Secret generated from the login server.
         base_url:
             _keyword: true
             desc: Who this LinodeLoginClient should talk to.  Set to https://login.alpha.linode.com for alpha environment.
             _default: "'https://login.linode.com'"
     example: >
-            login_client = linode.LinodeLoginClient('my-client-id', 'my-client-secret', 'https://login.alpha.linode.com')
+            login_client = linode.LinodeLoginClient('my-client-id', 'my-client-secret', base_url='https://login.alpha.linode.com')
 methods:
     generate_login_url:
         desc: >

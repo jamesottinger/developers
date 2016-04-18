@@ -14,7 +14,7 @@ constructor:
             desc: Who this LinodeClient should talk to.  Set to https://api.alpha.linode.com/v4 for alpha environment.
             _default: "'https://api.linode.com/v4'"
     example: >
-            client = linode.LinodeClient('my-token', 'https://api.alpha.linode.com/v4')
+            client = linode.LinodeClient('my-token', base_url='https://api.alpha.linode.com/v4')
 methods:
     get_distributions:
         desc: >

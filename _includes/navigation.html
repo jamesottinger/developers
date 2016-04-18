@@ -14,7 +14,7 @@
 {% assign endpoints = _endpoints | split: ' ' | sort %}
 <header>
     <nav id="main-nav" class="navbar navbar-default navbar-dark 
-        {% if page.url == '/reference/' %} refnav {% endif %}
+        {% if page.url == '/reference/' or page.url == '/libraries/python-reference/' %} refnav {% endif %}
         container" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" href="https://linode.com">
@@ -23,7 +23,7 @@
             </a>
             <p class="nav-text">
                 <a href="/"><strong>Dev<span 
-                    {% if page.url == '/reference/' %} 
+                    {% if page.url == '/reference/' or page.url == '/libraries/python-reference/' %}
                         class="hidden-xs-down" 
                     {% endif %} 
                     >eloper</span></strong></a>
@@ -47,35 +47,55 @@
                 </li>
             </ul>
         </div>
-        {% if page.url == '/reference/' %}
+        {% if page.url == '/reference/' or page.url == '/libraries/python-reference/' %}
             <select style="border: 1px solid #1c1c1c;
                 border-radius: 5px; margin-top: 15px; float: right;
                 color: #eee; background-color: #222;" id="menu" class="hidden-lg-up">
-                <option value="/guides" class="hidden-md-up">Guides</option>
-                <option value="/reference" class="hidden-md-up">API References</option>
-                {% if page.url == '/reference/' %}
+                    <option value="/guides" class="hidden-md-up">Guides</option>
+                    <option value="/reference" class="hidden-md-up">API References</option>
+                    {% if page.url == '/reference/' %}
+                        <optgroup label=" &nbsp; Introduction">
+                            <option value="#authentication" selected> &nbsp; Authentication</option>
+                            <option value="#lists-and-objects"> &nbsp; Lists & Objects</option>
+                            <option value="#pagination"> &nbsp; Pagination</option>
+                            <option value="#editing-objects"> &nbsp; Editing Objects</option>
+                            <option value="#errors"> &nbsp; Errors</option>
+                        </optgroup>
+                        <optgroup label=" &nbsp; API Endpoints">
+                            {% for key in endpoints %}
+                                {% assign name = key | split: '-' | last %}
+                                {% assign value = site.data.endpoints[name] %}
+                                <option value="#ep-{{name}}">{{value.name}}</option>
+                            {% endfor %}
+                        </optgroup>
+                        <optgroup label=" &nbsp; Object Reference">
+                            {% for key in objects %}
+                                {% assign value = site.data.objects[key] %}
+                                <option value="#object-{{key}}">{{value.name}}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% else %}
                     <optgroup label=" &nbsp; Introduction">
-                        <option value="#authentication" selected> &nbsp; Authentication</option>
-                        <option value="#lists-and-objects"> &nbsp; Lists & Objects</option>
-                        <option value="#pagination"> &nbsp; Pagination</option>
-                        <option value="#editing-objects"> &nbsp; Editing Objects</option>
-                        <option value="#errors"> &nbsp; Errors</option>
+                        <option value="#oauth-workflow"> &nbsp; OAuth Workflow</option>
+                        <option value="#core-concepts"> &nbsp; Core Concepts</option>
                     </optgroup>
-                    <optgroup label=" &nbsp; API Endpoints">
-                        {% for key in endpoints %}
-                            {% assign name = key | split: '-' | last %}
-                            {% assign value = site.data.endpoints[name] %}
-                            <option value="#ep-{{name}}">{{value.name}}</option>
-                        {% endfor %}
+                    <optgroup label=" &nbsp; Client Objects">
+                        <option value="#LinodeLoginClient"> &nbsp; LinodeLoginClient</option>
+                        <option value="#LinodeClient"> &nbsp; LinodeClient</option>
                     </optgroup>
-                    <optgroup label=" &nbsp; Object Reference">
-                        {% for key in objects %}
-                            {% assign value = site.data.objects[key] %}
-                            <option value="#object-{{key}}">{{value.name}}</option>
-                        {% endfor %}
+                    <optgroup label=" &nbsp; API Objects">
+                        <option value="#Linode"> &nbsp; Linode</option>
+                        <option value="#Config"> &nbsp; Config</option>
+                        <option value="#Disk"> &nbsp; Disk</option>
+                        <option value="#Datacenter"> &nbsp; Datacenter</option>
+                        <option value="#Distribution"> &nbsp; Distribution</option>
+                        <option value="#Kernel"> &nbsp; Kernel</option>
+                        <option value="#Service"> &nbsp; Service</option>
+                        <option value="#Zone"> &nbsp; Zone</option>
+                        <option value="#ZoneRecord"> &nbsp; ZoneRecord</option>
                     </optgroup>
-                {% endif %}
-                <option value="/libraries" class="hidden-md-up">Libraries</option>
+                    {% endif %}
+                    <option value="/libraries" class="hidden-md-up">Libraries</option>
             </select>
             <script>
                 $(function(){
