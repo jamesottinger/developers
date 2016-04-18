@@ -1,3 +1,11 @@
+{% assign all_attrs = "" | split: "" %}
+{% for attr in include.obj.schema %}
+    {% assign all_attrs = all_attrs | push: attr %}
+{% endfor %}
+{% for attr in include.pyattrs %}
+    {% assign all_attrs = all_attrs | push: attr %}
+{% endfor %}
+{% assign all_attrs = all_attrs | sort %}
 <div class="row reference white">
     <div class="col-lg-6 left">
         <h5>Attributes</h5>
@@ -6,7 +14,7 @@
 <div class="row reference white">
     <div class="col-lg-6 left">
         <table>
-            {% for attr in include.obj.schema | concat: include.pyattrs %}
+            {% for attr in all_attrs %}
                 <tr>
                     <td width="30%">
                         {{ attr[0] }}        

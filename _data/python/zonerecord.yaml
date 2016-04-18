@@ -1,6 +1,6 @@
 name: ZoneRecord
 import: from linode import ZoneRecord
-_object: zonerecord
+_object: zonerecords
 desc: >
     A Zone record.
 constructor:

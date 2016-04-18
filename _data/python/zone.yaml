@@ -1,6 +1,6 @@
 name: Zone
 import: from linode import Zone
-_object: zone
+_object: zones
 desc: >
     Represents a Zone in the API.
 _pylib_attributes:
