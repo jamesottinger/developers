@@ -9,11 +9,11 @@ constructor:
         client_id:
             _keyword: false
             desc: >
-                 The Client ID generated from the login server.
+                 The Client ID generated from the login service.
         client_secret:
             _keyword: false
             desc: >
-                 The Client Secret generated from the login server.
+                 The Client Secret generated from the login service.
         base_url:
             _keyword: true
             desc: Who this LinodeLoginClient should talk to.  Set to https://login.alpha.linode.com for alpha environment.
