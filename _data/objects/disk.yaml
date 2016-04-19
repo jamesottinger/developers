@@ -16,7 +16,7 @@ schema:
     _description: Human-friendly disk name
     _filterable: true
   state:
-    _type: string
+    _type: enum
     _subtype: State
     _value: ok
     _description: Status of the disk
