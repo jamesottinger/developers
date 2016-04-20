@@ -62,7 +62,7 @@ schema:
   is_public:
     _description: >
       Publicize StackScript in the Linode StackScript library.
-      Note that StackScripts cannot be changed to private after they have been public.
+      Note that StackScripts cannot be changed to private after they have been public
     _type: boolean
     _editable: true
     _value: true

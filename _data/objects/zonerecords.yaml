@@ -23,7 +23,7 @@ schema:
     _filterable: true
     _description: >
       The hostname or FQDN. When type=MX the subdomain to delegate to the
-      Target MX server.
+      Target MX server
   target:
     _type: string
     _value: sub
@@ -34,14 +34,14 @@ schema:
       When type=MX the hostname. When type=CNAME the target of the alias.
       When type=TXT the value of the record.
       When type=A or AAAA the token of '[remote_addr]' will be substituted
-      with the IP address of the request.
+      with the IP address of the request
   priority:
     _type: integer
     _value: 10
     _editable: true
     _optional: true
     _description:
-      Priority for MX and SRV records.
+      Priority for MX and SRV records
   weight:
     _type: integer
     _value: 20
@@ -49,28 +49,28 @@ schema:
     _optional: true
     _description: >
       A relative weight for records with the same priority,
-        higher value means more preferred.
+        higher value means more preferred
   port:
     _type: integer
     _value: 80
     _editable: true
     _optional: true
     _description: >
-      The TCP or UDP port on which the service is to be found.
+      The TCP or UDP port on which the service is to be found
   service:
     _type: string
     _value: _sip
     _editable: true
     _optional: true
     _description: >
-      The service to append to an SRV record. Must conform to RFC2782 standards.
+      The service to append to an SRV record. Must conform to RFC2782 standards
   protocol:
     _type: string
     _value: _tcp
     _editable: true
     _optional: true
     _description: >
-      The protocol to append to an SRV record. Must conform to RFC2782 standards.
+      The protocol to append to an SRV record. Must conform to RFC2782 standards
   ttl_sec:
     _type: integer
     _value: 86400
@@ -79,7 +79,7 @@ schema:
     _description: >
       Time interval that the resource record may be cached before
       it should be discarded, in seconds. Leave as 0 to accept
-      our default.
+      our default
   zone_record_type:
     _type: enum
     _subtype: Zone Record Types

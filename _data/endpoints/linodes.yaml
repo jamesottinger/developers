@@ -56,10 +56,7 @@ endpoints:
           label:
             optional: true
             description: The label to assign this Linode.
-            limit: >
-              3-32 ASCII characters limited to letters, numbers, underscores,
-              and dashes, starting and ending with a letter, and without two
-              dashes or underscores in a row. # Yes we know this is stupid
+            limit: "3-32 ASCII characters limited to letters, numbers, underscores, and dashes, starting and ending with a letter, and without two dashes or underscores in a row"
           group:
             optional: true
             description: The group to assign this Linode.

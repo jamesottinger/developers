@@ -65,7 +65,7 @@ schema:
       _type: string
       _value: Newark, NJ
   distribution:
-    _description: The distribution that this Linode booted to last.
+    _description: The distribution that this Linode booted to last
     _type: distribution
     _filterable: true
     id:
@@ -128,10 +128,7 @@ schema:
     _description: This Linode's display label
     _value: Example Linode
     _filterable: true
-    _limit: >
-      3-32 ASCII characters limited to letters, numbers, underscores,
-      and dashes, starting and ending with a letter, and without two
-      dashes or underscores in a row. # Yes we know this is stupid
+    _limit: "3-32 ASCII characters limited to letters, numbers, underscores, and dashes, starting and ending with a letter, and without two dashes or underscores in a row"
   services:
     _description: Paid service(s) for this Linode
     _type: service

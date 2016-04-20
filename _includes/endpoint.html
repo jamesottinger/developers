@@ -100,6 +100,9 @@
                                 </td>
                                 <td>
                                     {{ param[1].description }}
+                                    {% if param[1].limit %}
+                                    Must be {{ param[1].limit }}.
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

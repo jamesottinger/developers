@@ -34,12 +34,12 @@ schema:
   label:
     _type: string
     _value: 3.5.2-x86_64-linode26
-    _description: "The friendly name of this kernel."
+    _description: "The friendly name of this kernel"
     _filterable: true
   updates:
     _type: string
     _value: kernel_122
-    _description: A kernel ID that this provides an update for
+    _description: A kernel ID that this provides an update to
   version:
     _type: string
     _value: 3.5.2
