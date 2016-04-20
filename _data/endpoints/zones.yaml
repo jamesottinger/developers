@@ -4,6 +4,9 @@ base_path: /zones
 description: >
   Zone endpoints provide a means of managing the DNS <a href="#object-zones">
   Zone objects</a> on your account.
+
+  Note: the validation rules for DNS records are too complicated to document
+  here. We'll just direct you to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
 endpoints:
   zones:
     type: list

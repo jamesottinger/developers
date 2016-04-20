@@ -23,6 +23,7 @@ schema:
     _editable: true
     _value: Example StackScript
     _filterable: true
+    _limit: 3-128 characters
   description:
     _description: In-depth information on what this StackScript does
     _type: string

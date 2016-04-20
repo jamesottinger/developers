@@ -86,6 +86,7 @@ schema:
     _description: This Linode's display group
     _value: Example
     _filterable: true
+    limit: 0-50 characters
   id:
     _type: string
     _value: linode_12345
@@ -127,6 +128,10 @@ schema:
     _description: This Linode's display label
     _value: Example Linode
     _filterable: true
+    _limit: >
+      3-32 ASCII characters limited to letters, numbers, underscores,
+      and dashes, starting and ending with a letter, and without two
+      dashes or underscores in a row. # Yes we know this is stupid
   services:
     _description: Paid service(s) for this Linode
     _type: service
