@@ -11,7 +11,7 @@ schema:
     _type: string
     _value: Example Linode configuration
     _description: User-supplied comments about this config
-    _limit: 0-255 characters
+    _limit: 1-255 characters
   created:
     _type: datetime
     _value: 2015-09-29T11:21:38
@@ -113,7 +113,7 @@ schema:
     _value: "My openSUSE 13.2 Profile"
     _description: Human-friendly label for this config
     _filterable: true
-    _limit: 0-64 characters
+    _limit: 1-48 characters
   ram_limit:
     _editable: true
     _type: integer

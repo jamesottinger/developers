@@ -15,6 +15,7 @@ schema:
     _value: Ubuntu 14.04 Disk
     _description: Human-friendly disk name
     _filterable: true
+    _limit: 1-50 characters
   state:
     _type: enum
     _subtype: State

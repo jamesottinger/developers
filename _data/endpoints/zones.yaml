@@ -187,6 +187,7 @@ endpoints:
             description: >
               The hostname or FQDN. When type=MX the subdomain to
               delegate to the Target MX server.
+            limit: 1-100 characters
           target:
             optional: true
             description: >

@@ -166,7 +166,7 @@ endpoints:
             description: >
               User-friendly string to name this disk.
             type: string
-            limit: 0-50 characters
+            limit: 1-50 characters
           filesystem:
             description: >
               A <a href="#object-filesystem-enum">filesystem</a> for this disk.
@@ -333,7 +333,7 @@ endpoints:
           label:
             description: >
               The user-friendly label to name this config.
-            limit: 0-64 characters
+            limit: 1-48 characters
           disks:
             description: >
               An array of <a href="#object-disk">disk</a> IDs to attach to this config.
@@ -341,7 +341,7 @@ endpoints:
             optional: true
             description: >
               Optional field for arbitrary user comments on this config.
-            limit: 0-255 characters
+            limit: 1-255 characters
           ram_limit:
             optional: true
             description: >
