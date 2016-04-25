@@ -82,17 +82,17 @@ methods:
         example: >
             kernels = client.get_kernels(linode.Kernel.kvm == True)
         returns: A list of Kernel objects
-    get_zones:
+    get_dnszones:
         desc: >
-            Retrieves a list of Zone objects.  This function is filterable - include filters in the
+            Retrieves a list of DNS Zone objects.  This function is filterable - include filters in the
             parameters list to retrieve only specific objects.
         parameters:
             '*filters':
                 desc: Any number of filters to this function
                 _keyword: false
         example: >
-            zones = client.get_zones()
-        returns: A list of Zone objects
+            dnszones = client.get_dnszones()
+        returns: A list of DNS Zone objects
     create_linode:
         desc: >
             Creates a new Linode object.  Requires the <code>OAuthScopes.Linodes.create</code> scope.
@@ -201,20 +201,20 @@ methods:
             example: |
                 distros = client.get_distributions(linode.or_(linode.Distribution.vendor == 'Ubuntu', linode.Distribution.vendor == 'Debian'))
                 s = client.create_stackscript('my-stackscript', '~/stackscripts/my-stackscript.sh', distros)
-    create_zone:
-        desc: Creates a new Zone record.
+    create_dnszone:
+        desc: Creates a new DNS Zone record.
         parameters:
-            zone:
-                desc: The zone we are managing
+            dnszone:
+                desc: The DNS zone we are managing
                 _keyword: false
             master:
-                desc: Is this the master zone record?
+                desc: Is this the master DNS zone record?
                 _keyword: true
                 _default: 'True'
             '**kwargs':
                 desc: >
-                    Any number of additional keyword arguments to pass to the POST /zones endpoint.  For more information, see
-                    the <a href="/reference/#ep-zones-POST">endpoint docs</a> for complete breakdown.
+                    Any number of additional keyword arguments to pass to the POST /dnszones endpoint.  For more information, see
+                    the <a href="/reference/#ep-dnszones-POST">endpoint docs</a> for complete breakdown.
                 _keyword: false
         example: |
-            z = client.create_zone('example.org')
+            z = client.create_dnszone('example.org')

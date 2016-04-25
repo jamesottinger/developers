@@ -60,10 +60,10 @@ layout: base
                             <a class="nav-link" href="#Service">Service</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#Zone">Zone</a>
+                            <a class="nav-link" href="#DNSZone">DNS Zone</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#ZoneRecord">ZoneRecord</a>
+                            <a class="nav-link" href="#DNSZoneRecord">DNSZoneRecord</a>
                         </li>
                     </ul>
                 </li>
@@ -133,8 +133,8 @@ layout: base
                                 Requesting one scope grants all previous scopes as well.</td>
                         </tr>
                         <tr>
-                            <td>Zones</td>
-                            <td>Requests access to Zones.  Specify Zones.view, Zones.create, Zones.modify, Zones.delete, or Zones.all.
+                            <td>DNS Zones</td>
+                            <td>Requests access to DNS Zones.  Specify DNSZones.view, DNSZones.create, DNSZones.modify, DNSZones.delete, or DNSZones.all.
                                 Requesting one scope grants all previous scopes as well.</td>
                         </tr>
                         <tr>
@@ -252,7 +252,7 @@ while not linode.state == 'running':
                     <h4>Updating and Deleting Objects</h4>
                     <p>
                         All API resources are represented as objects, and all objects you own can be updated and deleted (an object you own
-                        would be a Linode or a Zone, as opposed to a Datacenter or Service, which are accessible to you but cannot be
+                        would be a Linode or a DNS Zone, as opposed to a Datacenter or Service, which are accessible to you but cannot be
                         modified or removed).
                     </p>
                 </div>
@@ -340,11 +340,11 @@ linode.delete()
             {% assign stackscript = site.data.python['stackscript'] %}
             {% include class-details-python.html class=stackscript %}
 
-            {% assign zone = site.data.python['zone'] %}
-            {% include class-details-python.html class=zone %}
+            {% assign dnszone = site.data.python['dnszone'] %}
+            {% include class-details-python.html class=dnszone %}
 
-            {% assign zonerecord = site.data.python['zonerecord'] %}
-            {% include class-details-python.html class=zonerecord %}
+            {% assign dnszonerecord = site.data.python['dnszonerecord'] %}
+            {% include class-details-python.html class=dnszonerecord %}
 
         </div>
     </div>

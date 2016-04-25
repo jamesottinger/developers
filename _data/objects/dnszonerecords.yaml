@@ -1,8 +1,8 @@
 # vim: set et ts=2 sw=2 tw=80 :
-name: Zone Records
+name: DNS Zone Records
 prefix: zrcd
 description: >
-  Zone Records: The Zone Record fields will contain different values
+  DNSZone Records: The DNS Zone Record fields will contain different values
   depending on what type of record it is.
 schema:
   id:
