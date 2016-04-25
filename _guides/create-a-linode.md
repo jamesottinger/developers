@@ -173,7 +173,7 @@ following curl command and run it when you're ready to deploy:
 
 {% highlight bash %}
 curl -X POST https://{{ site.api_root }}/{{ site.api_version }}/linodes \
--d '{"service": "service_112","datacenter": "datacenter_7","source": "distro_140","root_pass": "$root_pass"}' \
+-d '{"service": "service_112","datacenter": "datacenter_6","source": "distro_140","root_pass": "$root_pass"}' \
 -H "Authorization: token $TOKEN" -H "Content-type: application/json"
 {% endhighlight %}
 
@@ -192,7 +192,7 @@ created Linode like the following:
         "updated": "2015-12-07T18:03:28",
         "created": "2015-12-07T18:03:28",
         "datacenter": {
-            "id": "datacenter_7",
+            "id": "datacenter_6",
             "label": "Vagrant"
         },
         "ip_addresses": {
