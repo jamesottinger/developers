@@ -60,10 +60,29 @@ layout: base
                         {% for key in endpoints %}
                             {% assign name = key | split: '-' | last %}
                             {% assign value = site.data.endpoints[name] %}
+                            {% assign methods = site.data.endpoints[name].methods %}
                             <li class="nav-item">
                                 <a class="nav-link" href="#ep-{{name}}">
                                     {{value.name}}
                                 </a>
+                                <ul class="nav nav-pills nav-stacked">
+                                {% for base in value.endpoints %}
+                                    <li class="nav-item">
+                                        <a href="#ep-{{ base[0] | replace: '/', '-' | replace: ':', '' }}-methods" class="nav-link">
+                                            {{ base[0] }}
+                                        </a> 
+                                    </li>
+                                    <!--<ul class="nav-pills nav-stacked">
+                                    {% for method in base[1].methods %}
+                                        <li class="nav-item">
+                                            <a href="#ep-{{ base[0] | replace: '/', '-' | replace: ':', '' }}-{{method[0]}}" class="nav-link">
+                                                {{method[0]}}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>-->
+                                {% endfor %}
+                                </ul>
                             </li>
                         {% endfor %}
                     </ul>
