@@ -33,7 +33,7 @@ endpoints:
               The zone name.
           type:
             description: >
-              Master or slave Zone.
+              Zone <a href="#object-zone_type-enum">type</a> as master or slave.
           soa_email:
             optional: true
             description: >
@@ -178,7 +178,7 @@ endpoints:
         params:
           type:
             description: >
-              Type of record (A/AAAA, NS, MX, CNAME, TXT, SRV).
+              <a href="#object-zone-record-types-enum">Type</a> of record.
           name:
             optional: true
             description: >

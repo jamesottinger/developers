@@ -159,7 +159,7 @@ endpoints:
             type: string
           filesystem:
             description: >
-              One of ext3, ext4, swap, raw.
+              A <a href="#object-filesystem-enum">filesystem</a> for this disk.
             type: string
           read_only:
             optional: true
@@ -348,13 +348,11 @@ endpoints:
           run_level:
             optional: true
             description: >
-              Sets the run level for Linode boot from the options "default",
-              "single", and "binbash". Defaults to "default".
+              Sets the <a href="#object-run_level-enum">run level</a> for Linode boot. Defaults to "default".
           virt_mode:
             optional: true
             description: >
-              Controls the virtualization mode. Valid settings are "paravirt"
-              and "fullvirt". Defaults to "paravirt".
+              Controls the <a href="#object-virt_mode-enum">virtualization mode</a>. Defaults to "paravirt".
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
