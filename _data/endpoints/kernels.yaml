@@ -13,7 +13,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of kernels.
+          Returns list of <a href="#object-kernel">kernels</a>.
         examples:
           curl: |
             curl https://$api_root/$version/kernels
@@ -28,7 +28,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns information about this kernel.
+          Returns information about this <a href="#object-kernel">kernel</a>.
         examples:
           curl: |
             curl https://$api_root/$version/kernels/$kernel_id

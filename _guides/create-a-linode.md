@@ -235,7 +235,7 @@ created Linode like the following:
 The above response contains lots of details about the newly created Linode,
 including IP addresses, alerts, datacenter information, and meta-data like
 the date and time it was created. For information on all of the returned fields,
-please see the [Linode object reference](/reference#object-linodes). Take note
+please see the [Linode object reference](/reference#object-linode). Take note
 of the ```id``` field, as you will need it for the next step.
 
 ## Booting a Linode

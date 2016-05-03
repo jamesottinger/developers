@@ -2,7 +2,7 @@
 name: DNS Zones
 base_path: /dnszones
 description: >
-  DNS Zone endpoints provide a means of managing the DNS <a href="#object-dnszones">
+  DNS Zone endpoints provide a means of managing the DNS <a href="#object-dnszone">
   DNS Zone objects</a> on your account.
 
   Note: the validation rules for DNS records are too complicated to document
@@ -18,7 +18,7 @@ endpoints:
       GET:
         oauth: dnszones:view
         description: >
-          Returns a list of DNS Zones.
+          Returns a list of <a href="#object-dnszone">DNS Zones</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -110,7 +110,8 @@ endpoints:
       GET:
         oauth: dnszones:view
         description: >
-          Returns information for the DNS Zone identified by :id.
+          Returns information for the <a href="#object-dnszone">DNS Zone</a>
+          identified by :id.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -166,7 +167,7 @@ endpoints:
       GET:
         oauth: dnszones:view
         description: >
-          Returns a list of DNS Zone Records.
+          Returns a list of <a href="#object-dnszonerecord">DNS Zone Records</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -242,7 +243,8 @@ endpoints:
       GET:
         oauth: dnszones:view
         description: >
-          Returns information for the DNS Zone record identified by ":id".
+          Returns information for the <a href="#object-dnszonerecord">DNS Zone
+          Record</a> identified by ":id".
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \

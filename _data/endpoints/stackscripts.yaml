@@ -3,7 +3,7 @@ name: StackScripts
 base_path: /stackscripts
 description: >
   StackScript endpoints provide a means of managing the
-  <a href="#object-stackscripts"> StackScript objects</a> accessible from your 
+  <a href="#object-stackscript"> StackScript objects</a> accessible from your
   account.
 endpoints:
   stackscripts:
@@ -16,7 +16,8 @@ endpoints:
       GET:
         oauth: stackscripts:view
         description: >
-          Returns a list of StackScripts accessible from your account.
+          Returns a list of <a href="#object-stackscript">StackScripts</a>
+          accessible from your account.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -78,7 +79,8 @@ endpoints:
       GET:
         oauth: stackscripts:view
         description: >
-          Returns information about this StackScript.
+          Returns information about this <a href="#object-stackscript">
+          StackScript</a>.
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
