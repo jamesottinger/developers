@@ -1,6 +1,6 @@
 name: DNS Zone
 import: from linode import DNSZone
-_object: dnszones
+_object: dnszone
 desc: >
     Represents a DNS Zone in the API.
 _pylib_attributes:

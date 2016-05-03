@@ -1,6 +1,6 @@
-name: DNSZoneRecord
+name: DNS Zone Record
 import: from linode import DNSZoneRecord
-_object: dnszonerecords
+_object: dnszonerecord
 desc: >
     A DNS Zone record.
 constructor:

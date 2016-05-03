@@ -1,6 +1,6 @@
 name: Linode
 import: from linode import Linode
-_object: linodes
+_object: linode
 desc: >
     A Linode.  Create linodes with <code>LinodeClient.create_linode</code>.  This class holds all attributes of a Linode
     and methods for managing it.

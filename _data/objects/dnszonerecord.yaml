@@ -2,7 +2,7 @@
 name: DNS Zone Records
 prefix: zrcd
 description: >
-  DNSZone Records: The DNS Zone Record fields will contain different values
+  DNS Zone Records: The DNS Zone Record fields will contain different values
   depending on what type of record it is.
 schema:
   id:
