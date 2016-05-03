@@ -59,6 +59,10 @@ schema:
     _description: The total number of times this StackScript has been deployed
     _type: integer
     _value: 150
+  deployments_active:
+    _description: The total number of active deployments
+    _type: integer
+    _value: 42
   is_public:
     _description: >
       Publicize StackScript in the Linode StackScript library.
