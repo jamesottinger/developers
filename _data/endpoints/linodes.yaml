@@ -44,23 +44,37 @@ endpoints:
             optional: true
             description: >
               An object ID to source this Linode from. The type of the ID you
-              pass in determines what we do with it. If you provide a
+              pass in determines what we do with it.
+              <ul><li>If you provide a
               distribution, it will create sane default configs and disks, then
-              install that distribution on the new Linode. If you provide another
-              Linode's ID, it will clone that Linode.
+              install that distribution on the new Linode.</li><li>If no source is provided,
+              a blank Linode is created.</li></ul>
           root_pass:
             optional: unless source == "distro"
             description: >
-              The root password to use when sourcing this Linode from a
-              distribution.
+              The root password to use when sourcing this Linode from a distribution.
+              <ul><li>root_pass is required if the source provided is a distribution.</li></ul>
           label:
             optional: true
-            description: The label to assign this Linode.
+            description: The label to assign this Linode. Defaults to "linode".
             limit: "3-32 ASCII characters limited to letters, numbers, underscores, and dashes, starting and ending with a letter, and without two dashes or underscores in a row"
           group:
             optional: true
-            description: The group to assign this Linode.
+            description: The group to assign this Linode. Defaults to "empty".
             limit: 0-50 characters
+          stackscript:
+            optional: true
+            description: >
+              The stackscript ID to deploy with this disk.
+              <ul><li>Must provide a distribution. Distribution must be
+              one that the stackscript can be deployed to.</li></ul>
+            type: stackscript
+          stackscript_udf_responses:
+            optional: true
+            description: >
+              UDF (user-defined fields) for this stackscript. Defaults to "{}".
+              <ul><li>Must match UDFs required by stackscript.</li></ul>
+            type: string
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
@@ -138,7 +152,7 @@ endpoints:
             import linode
             TODO
       POST:
-        oauth: linodes:delete
+        oauth: linodes:modify
         description: >
           Creates a new disk.
         params:
@@ -151,11 +165,14 @@ endpoints:
             optional: true
             description: >
               Optional distribution to deploy with this disk.
+              <ul><li>If no distribution is provided, a blank disk
+              is created.</li></ul>
             type: distribution
           root_pass:
-            optional: unless distribution is not specified
+            optional: unless distribution is specified
             description: >
               Root password to deploy distribution with.
+              <ul><li>root_pass is required if a distribution is provided.</li></ul>
             type: string
           root_ssh_key:
             optional: unless distribution is not specified
@@ -180,11 +197,14 @@ endpoints:
             optional: true
             description: >
               The stackscript ID to deploy with this disk.
+              <ul><li>Must provide a distribution. Distribution must be
+              one that the stackscript can be deployed to.</li></ul>
             type: stackscript
           stackscript_udf_responses:
             optional: true
             description: >
-              UDF (user-defined fields) for this stackscript.
+              UDF (user-defined fields) for this stackscript. Defaults to "{}".
+              <ul><li>Must match UDFs required by stackscript.</li></ul>
             type: string
         examples:
           curl: |

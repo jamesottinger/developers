@@ -46,7 +46,7 @@ endpoints:
             optional: true
             description: >
               If true, this StackScript will be publicly visible in the Linode
-              StackScript library.
+              StackScript library. Defaults to False.
           rev_note:
             optional: true
             description: >
