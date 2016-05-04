@@ -10,18 +10,15 @@ endpoints:
     type: list
     resource: stackscripts
     description: >
-      View public StackScripts and manage the collection of StackScripts 
-      associated with your account.
+      View public StackScripts.
     methods:
       GET:
-        oauth: stackscripts:view
         description: >
-          Returns a list of <a href="#object-stackscript">StackScripts</a>
-          accessible from your account.
+          Returns a list of public <a href="#object-stackscript">StackScripts</a>.
+          Results can be <a href="#filtering">filtered</a>.
         examples:
           curl: |
-            curl -H "Authorization: token $TOKEN" \
-              https://$api_root/$version/stackscripts
+            curl https://$api_root/$version/stackscripts
           python: |
             import stackscript
             TODO
@@ -66,6 +63,26 @@ endpoints:
                 "script": "#!..."
               }' \
               https://$api_root/$version/stackscripts
+          python: |
+            import stackscript
+            TODO
+  stackscripts/mine:
+    type: list
+    resource: stackscripts
+    authenticated: true
+    description: >
+      Retrieve your StackScripts.
+    methods:
+      GET:
+        oauth: stackscripts:view
+        description: >
+          Returns a list of StackScripts associated with your account.
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+              -H "Authorization: token $TOKEN" \
+              -X GET \
+              https://$api_root/$version/stackscripts/mine
           python: |
             import stackscript
             TODO
