@@ -1,0 +1,52 @@
+---
+layout: base
+---
+
+{% include header.html %}
+
+<div class="container">
+    <h1 class="m-b-3">
+        Frequently Asked Questions
+    </h1>
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              How long do Linodes spun up for alpha testing stay up before deleting?</a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          The alpha environment is wiped every Sunday night.
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Will I be charged for Linodes used with the alpha API?</a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          No. You are not charged for anything while using the alpha version of the API.
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Is it possible to use the alpha API with my current Linode account?</a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          No, it requires you to request access via <a href="https://alpha.linode.com">alpha.linode.com</a>. See our
+          <a href="https://engineering.linode.com/2016/04/12/Announcing-APIv4.html" target="_blank">Engineering Blog</a> for
+          more information.
+        </div>
+      </div>
+
+    </div>
+</div>
