@@ -105,7 +105,7 @@ endpoints:
             TODO
   dnszones/:id:
     authenticated: true
-    resource: dnszones
+    resource: dnszone
     methods:
       GET:
         oauth: dnszones:view
