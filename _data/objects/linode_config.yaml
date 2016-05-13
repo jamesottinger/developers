@@ -35,9 +35,18 @@ schema:
       size:
         _type: integer
         _value: 4000
-      type:
+      filesystem:
         _type: string
         _value: ext4
+      state:
+        _type: string
+        _value: ok
+      created:
+        _type: datetime
+        _value: 2016-05-12T13:36:42
+      updated:
+        _type: datetime
+        _value: 2016-05-12T16:13:42
     sdb:
       _type: disk
       _value: "null"

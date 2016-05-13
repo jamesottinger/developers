@@ -80,6 +80,18 @@ schema:
     x64:
       _type: boolean
       _value: true
+    recommended:
+      _type: boolean
+      _value: true
+    experimental:
+      _type: boolean
+      _value: false
+    created:
+      _type: datetime
+      _value: 2014-12-17T17:55:42
+    minimum_image_size:
+      _type: integer
+      _value: 700
   group:
     _editable: true
     _type: string
