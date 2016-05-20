@@ -13,6 +13,8 @@
     Marques Johansson
 
     Nick Dodson
+    
+    Phil Eaton
 
     Robert DeRose
 
