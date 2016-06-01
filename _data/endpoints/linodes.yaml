@@ -529,3 +529,40 @@ endpoints:
           python: |
             import linode
             TODO
+  linodes/:id/backups/enable:
+    type: action
+    authenticated: true
+    description: >
+       Enables the backup service on the given Linode.
+    methods:
+      POST:
+        money: true
+        oauth: linodes:modify
+        dangerous: true
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST \
+                https://$api_root/$version/linodes/$linode_id/backups/enable
+          python: |
+            import linode
+            TODO
+  linodes/:id/backups/cancel:
+    type: action
+    authenticated: true
+    description: >
+      Cancels the backup service on the given Linode.
+    methods:
+      POST:
+        oauth: linodes:delete
+        dangerous: true
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST \
+                https://$api_root/$version/linodes/$linode_id/backups/cancel
+          python: |
+            import linode
+            TODO
