@@ -529,6 +529,21 @@ endpoints:
           python: |
             import linode
             TODO
+  linodes/:id/backups:
+    type: action
+    authenticated: true
+    description: >
+      Returns information about this Linode's backups
+    methods:
+      GET:
+        oauth: linodes:view
+        examples:
+          curl: |
+            curl -H "Authorization: token $TOKEN" \
+                https://$api_root/$version/linodes/$linode_id/backups
+          python: |
+            import linode
+            TODO
   linodes/:id/backups/enable:
     type: action
     authenticated: true

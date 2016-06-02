@@ -51,6 +51,40 @@ schema:
         _type: integer
         _value: 80
         _description: Threshold as a percentage of your quota
+  backups:
+    _description: Displays if backups are enabled, and last backup datetime if applicable
+    enabled:
+      _type: boolean
+      _value: true
+    last_backup:
+      _description: If enabled, when last backup was successfully completed
+      create_dt:
+        _type: datetime
+        _value: "2015-10-06T00:27:08"
+      duration:
+        _type: integer
+        _value: 0
+      finish_dt:
+        _type: datetime
+        _value: "2015-10-06T01:09:08"
+      id:
+        _type: string
+        _value: "backup_26083011"
+      message:
+        _type: string
+        _value: "Backup completed."
+      status:
+        _type: enum
+        _subtype: BackupStatus
+        _value: "successful"
+        _filterable: false
+        _pylib_volatile: true
+      type:
+        _type: enum
+        _subtype: BackupType
+        _value: "auto"
+        _filterable: false
+        _pylib_volatile: true
   created:
     _type: datetime
     _value: "2015-09-29T11:21:01"
@@ -172,3 +206,14 @@ enums:
     provisioning: The Linode is being created
     deleting: The Linode is being deleted
     migrating: The Linode is being migrated to a new host/datacenter
+  BackupStatus:
+    paused: Backups are temporarily paused
+    pending: Backup is in the queue and waiting to begin
+    running: Linode in the process of being backed up
+    needsPostProcessing: Backups awaiting final integration into existing backup data
+    successful: Backup successfully completed
+    failed: Linode backup failed
+    userAborted: User aborted current backup process
+  BackupType:
+    auto: Automatic backup
+    snapshot: User-initiated, manual file backup
