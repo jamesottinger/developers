@@ -47,21 +47,6 @@ h1, h2, h3, h4, h5 {
     }
 }
 
-@keyframes balloons {
-    0% {
-        background-position:
-            0 -2rem,    // Balloons front
-            0 -0.75rem, // Balloons middle
-            0 0rem;     // Balloons back
-    }
-    100% {
-        background-position:
-            0 -1rem,    // Balloons front
-            0 0rem,     // Balloons middle
-            0 -0.25rem; // Balloons back
-    }
-}
-
 header {
     position: absolute;
     top: 15px;
@@ -114,28 +99,8 @@ nav {
             url($root + '/assets/BH_02 Clouds v2.svg'),
             url($root + '/assets/BH_01 Sky.svg');
         background-size: auto 27rem;
-        animation-name: clouds;
-        animation-duration: 200000s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
     }
     
-    .bg-balloons {
-        position: absolute;
-        left: 0; right: 0; top: 0; bottom: 0;
-        background:
-            url($root + '/assets/BH_05 Balloons Front.svg'),
-            url($root + '/assets/BH_04 Balloons Middle.svg'),
-            url($root + '/assets/BH_03 Balloons Back.svg');
-        background-size: auto 33rem;
-        animation-direction: alternate;
-        animation-iteration-count: infinite;
-        animation-name: balloons;
-        animation-duration: 1.5s;
-        animation-timing-function: cubic-bezier(.57,.22,.44,.76);
-        transform: scaleX(-1);
-    }
-
     .marketing-copy {
         position: relative;
         left: -1rem;

@@ -23,6 +23,7 @@ schema:
     _editable: true
     _value: Example StackScript
     _filterable: true
+    _limit: 3-128 characters
   description:
     _description: In-depth information on what this StackScript does
     _type: string
@@ -32,6 +33,7 @@ schema:
   distributions:
     _description: A list of distributions this StackScript is compatible with
     _type: array
+    _editable: true
     _subtype: distribution
     _filterable: true
     _value:
@@ -44,6 +46,21 @@ schema:
         vendor:
           _type: string
           _value: Debian
+        x64:
+          _type: boolean
+          _value: true
+        recommended:
+          _type: boolean
+          _value: true
+        experimental:
+          _type: boolean
+          _value: false
+        created:
+          _type: datetime
+          _value: 2015-04-27T16:26:41
+        minimum_image_size:
+          _type: integer
+          _value: 900
       - id:
           _type: integer
           _value: distro_101
@@ -53,13 +70,35 @@ schema:
         vendor:
           _type: string
           _value: Debian
+        x64:
+          _type: boolean
+          _value: true
+        recommended:
+          _type: boolean
+          _value: true
+        experimental:
+          _type: boolean
+          _value: false
+        created:
+          _type: datetime
+          _value: 2014-09-24T13:59:32
+        minimum_image_size:
+          _type: integer
+          _value: 600
   deployments_total:
     _description: The total number of times this StackScript has been deployed
     _type: integer
     _value: 150
+  deployments_active:
+    _description: The total number of active deployments
+    _type: integer
+    _value: 42
   is_public:
-    _description: Whether this StackScript is available for anyone to use
+    _description: >
+      Publicize StackScript in the Linode StackScript library.
+      Note that StackScripts cannot be changed to private after they have been public
     _type: boolean
+    _editable: true
     _value: true
     _filterable: true
   created:
@@ -70,9 +109,10 @@ schema:
     _description: When the StackScript was last updated
     _type: datetime
     _value: "2015-10-15T10:02:01"
-  revision_note:
-    _description: The most recent note about what was changed
+  rev_note:
+    _description: The most recent note about what was changed for this revision.
     _type: string
+    _editable: true
     _value: "Initial import"
   script:
     _description: The actual script body to be executed

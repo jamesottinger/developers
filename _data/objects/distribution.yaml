@@ -33,7 +33,7 @@ schema:
   vendor:
     _type: string
     _value: Arch
-    _description: The upstream distribution vendor. Consistent between releases of a distro.
+    _description: The upstream distribution vendor. Consistent between releases of a distro
     _filterable: true
   x64:
     _type: boolean

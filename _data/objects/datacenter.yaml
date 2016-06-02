@@ -9,6 +9,20 @@ schema:
     _value: datacenter_7
   label:
     _type: string
-    _value: London, UK
+    _value: London, England, UK
     _description: Human-friendly datacenter name
     _filterable: true
+  datacenter:
+    _type: enum
+    _subtype: Datacenter
+    _value: london
+    _description: Datacenters
+enums:
+  Datacenter:
+    dallas: Dallas, TX
+    fremont: Fremont, CA
+    atlanta: Atlanta, GA
+    newark:  Newark, NJ
+    london: London, England, UK
+    singapore: Singapore, SG
+    frankfurt: Frankfurt, DE

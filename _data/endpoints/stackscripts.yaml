@@ -3,24 +3,22 @@ name: StackScripts
 base_path: /stackscripts
 description: >
   StackScript endpoints provide a means of managing the
-  <a href="#object-stackscripts"> StackScript objects</a> accessible from your 
+  <a href="#object-stackscript"> StackScript objects</a> accessible from your
   account.
 endpoints:
   stackscripts:
     type: list
     resource: stackscripts
     description: >
-      View public StackScripts and manage the collection of StackScripts 
-      associated with your account.
+      View public StackScripts.
     methods:
       GET:
-        oauth: stackscripts:view
         description: >
-          Returns a list of StackScripts accessible from your account.
+          Returns a list of public <a href="#object-stackscript">StackScripts</a>.
+          Results can be <a href="#filtering">filtered</a>.
         examples:
           curl: |
-            curl -H "Authorization: token $TOKEN" \
-              https://$api_root/$version/stackscripts
+            curl https://$api_root/$version/stackscripts
           python: |
             import stackscript
             TODO
@@ -32,6 +30,7 @@ endpoints:
           label:
             description: >
               Label of StackScript.
+            limit: 3-128 characters
           description:
             optional: true
             description: >
@@ -45,11 +44,12 @@ endpoints:
             optional: true
             description: >
               If true, this StackScript will be publicly visible in the Linode
-              StackScript library.
+              StackScript library. Defaults to False.
           rev_note:
             optional: true
             description: >
               Release notes for this revision.
+            limit: 0-512 characters
           script:
             description: >
               The shell script to run on boot.
@@ -66,6 +66,26 @@ endpoints:
           python: |
             import stackscript
             TODO
+  stackscripts/mine:
+    type: list
+    resource: stackscripts
+    authenticated: true
+    description: >
+      Retrieve your StackScripts.
+    methods:
+      GET:
+        oauth: stackscripts:view
+        description: >
+          Returns a list of StackScripts associated with your account.
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+              -H "Authorization: token $TOKEN" \
+              -X GET \
+              https://$api_root/$version/stackscripts/mine
+          python: |
+            import stackscript
+            TODO
   stackscripts/:id:
     type: list
     resource: stackscripts
@@ -76,7 +96,8 @@ endpoints:
       GET:
         oauth: stackscripts:view
         description: >
-          Returns information about this StackScript.
+          Returns information about this <a href="#object-stackscript">
+          StackScript</a>.
         examples:
           curl: |
             curl -H "Content-Type: application/json" \

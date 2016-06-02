@@ -30,7 +30,7 @@
         {% for enum in include.schema.enums %}
             {% assign name = enum[0] %}
             {% assign values = enum[1] %}
-            <h4>{{ name }} Enumeration</h4>
+            <h4>{{ name }} Enumeration<span class="anchor" id="object-{{ name | replace: " ", "-" | downcase}}-enum">&nbsp;</span></h4>
             <table class="table table-striped">
                 <thead class="thead-inverse">
                     <tr>

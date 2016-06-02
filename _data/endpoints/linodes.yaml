@@ -3,7 +3,7 @@ name: Linodes
 sort: 0
 base_path: /linodes
 description: >
-  Linode endpoints provide a means of managing the <a href="#object-linodes">
+  Linode endpoints provide a means of managing the <a href="#object-linode">
   Linode objects</a> on your account.
 endpoints:
   linodes:
@@ -16,7 +16,7 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns a list of Linodes.
+          Returns a list of <a href="#object-linode">Linodes</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -44,15 +44,37 @@ endpoints:
             optional: true
             description: >
               An object ID to source this Linode from. The type of the ID you
-              pass in determines what we do with it. If you provide a
+              pass in determines what we do with it.
+              <ul><li>If you provide a
               distribution, it will create sane default configs and disks, then
-              install that distribution on the new Linode. If you provide another
-              Linode's ID, it will clone that Linode.
+              install that distribution on the new Linode.</li><li>If no source is provided,
+              a blank Linode is created.</li></ul>
           root_pass:
             optional: unless source == "distro"
             description: >
-              The root password to use when sourcing this Linode from a
-              distribution.
+              The root password to use when sourcing this Linode from a distribution.
+              <ul><li>root_pass is required if the source provided is a distribution.</li></ul>
+          label:
+            optional: true
+            description: The label to assign this Linode. Defaults to "linode".
+            limit: "3-32 ASCII characters limited to letters, numbers, underscores, and dashes, starting and ending with a letter, and without two dashes or underscores in a row"
+          group:
+            optional: true
+            description: The group to assign this Linode. Defaults to "empty".
+            limit: 0-50 characters
+          stackscript:
+            optional: true
+            description: >
+              The stackscript ID to deploy with this disk.
+              <ul><li>Must provide a distribution. Distribution must be
+              one that the stackscript can be deployed to.</li></ul>
+            type: stackscript
+          stackscript_udf_responses:
+            optional: true
+            description: >
+              UDF (user-defined fields) for this stackscript. Defaults to "{}".
+              <ul><li>Must match UDFs required by stackscript.</li></ul>
+            type: string
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
@@ -75,7 +97,7 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns information about this Linode.
+          Returns information about this <a href="#object-linode">Linode</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -121,7 +143,7 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns a list of disks.
+          Returns a list of <a href="#object-disk">disks</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -130,7 +152,7 @@ endpoints:
             import linode
             TODO
       POST:
-        oauth: linodes:delete
+        oauth: linodes:modify
         description: >
           Creates a new disk.
         params:
@@ -138,15 +160,19 @@ endpoints:
             description: >
               Size in MB for this disk.
             type: integer
+            limit: between 0 and the available space on the Linode
           distribution:
             optional: true
             description: >
               Optional distribution to deploy with this disk.
+              <ul><li>If no distribution is provided, a blank disk
+              is created.</li></ul>
             type: distribution
           root_pass:
-            optional: unless distribution is not specified
+            optional: unless distribution is specified
             description: >
               Root password to deploy distribution with.
+              <ul><li>root_pass is required if a distribution is provided.</li></ul>
             type: string
           root_ssh_key:
             optional: unless distribution is not specified
@@ -157,9 +183,10 @@ endpoints:
             description: >
               User-friendly string to name this disk.
             type: string
+            limit: 1-50 characters
           filesystem:
             description: >
-              One of ext3, ext4, swap, raw.
+              A <a href="#object-filesystem-enum">filesystem</a> for this disk.
             type: string
           read_only:
             optional: true
@@ -170,11 +197,14 @@ endpoints:
             optional: true
             description: >
               The stackscript ID to deploy with this disk.
+              <ul><li>Must provide a distribution. Distribution must be
+              one that the stackscript can be deployed to.</li></ul>
             type: stackscript
           stackscript_udf_responses:
             optional: true
             description: >
-              UDF (user-defined fields) for this stackscript.
+              UDF (user-defined fields) for this stackscript. Defaults to "{}".
+              <ul><li>Must match UDFs required by stackscript.</li></ul>
             type: string
         examples:
           curl: |
@@ -199,7 +229,7 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns information about this disk.
+          Returns information about this <a href="#object-disk">disk</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -303,7 +333,8 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns a list of configs for a given Linode.
+          Returns a list of <a href="#object-linode_config">configs</a> for a
+          given Linode.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -323,6 +354,7 @@ endpoints:
           label:
             description: >
               The user-friendly label to name this config.
+            limit: 1-48 characters
           disks:
             description: >
               An array of <a href="#object-disk">disk</a> IDs to attach to this config.
@@ -330,11 +362,13 @@ endpoints:
             optional: true
             description: >
               Optional field for arbitrary user comments on this config.
+            limit: 1-255 characters
           ram_limit:
             optional: true
             description: >
               The maximum RAM the Linode will be given when booting this
               config. This defaults to the total RAM of the Linode.
+            limit: between 0 and the Linode's total RAM
           root_device_ro:
             optional: true
             description: >
@@ -348,13 +382,11 @@ endpoints:
           run_level:
             optional: true
             description: >
-              Sets the run level for Linode boot from the options "default",
-              "single", and "binbash". Defaults to "default".
+              Sets the <a href="#object-run_level-enum">run level</a> for Linode boot. Defaults to "default".
           virt_mode:
             optional: true
             description: >
-              Controls the virtualization mode. Valid settings are "paravirt"
-              and "fullvirt". Defaults to "paravirt".
+              Controls the <a href="#object-virt_mode-enum">virtualization mode</a>. Defaults to "paravirt".
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
@@ -382,7 +414,8 @@ endpoints:
       GET:
         oauth: linodes:view
         description: >
-          Returns information about this Linode config.
+          Returns information about this <a href="#object-linode_config">
+          Linode config</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
@@ -493,6 +526,58 @@ endpoints:
                     "config": "config_1234"
                 }' \
                 https://$api_root/$version/linodes/$linode_id/reboot
+          python: |
+            import linode
+            TODO
+  linodes/:id/backups:
+    type: action
+    authenticated: true
+    description: >
+      Returns information about this Linode's backups
+    methods:
+      GET:
+        oauth: linodes:view
+        examples:
+          curl: |
+            curl -H "Authorization: token $TOKEN" \
+                https://$api_root/$version/linodes/$linode_id/backups
+          python: |
+            import linode
+            TODO
+  linodes/:id/backups/enable:
+    type: action
+    authenticated: true
+    description: >
+       Enables the backup service on the given Linode.
+    methods:
+      POST:
+        money: true
+        oauth: linodes:modify
+        dangerous: true
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST \
+                https://$api_root/$version/linodes/$linode_id/backups/enable
+          python: |
+            import linode
+            TODO
+  linodes/:id/backups/cancel:
+    type: action
+    authenticated: true
+    description: >
+      Cancels the backup service on the given Linode.
+    methods:
+      POST:
+        oauth: linodes:delete
+        dangerous: true
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST \
+                https://$api_root/$version/linodes/$linode_id/backups/cancel
           python: |
             import linode
             TODO

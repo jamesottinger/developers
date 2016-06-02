@@ -13,7 +13,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of services.
+          Returns list of <a href="#object-service">services</a>.
         examples:
           curl: |
             curl https://$api_root/$version/services
@@ -28,7 +28,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns information about this service.
+          Returns information about this <a href="#object-service">service</a>.
         examples:
           curl: |
             curl https://$api_root/$version/services/$service_id
@@ -44,7 +44,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of Linode services.
+          Returns list of Linode <a href="#object-service">services</a>.
         examples:
           curl: |
             curl https://$api_root/$version/services/linode
@@ -59,7 +59,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of backup services.
+          Returns list of backup <a href="#object-service">services</a>.
         examples:
           curl: |
             curl https://$api_root/$version/services/backup
@@ -74,7 +74,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of Longview services.
+          Returns list of Longview <a href="#object-service">services</a>.
         examples:
           curl: |
             curl https://$api_root/$version/services/longview

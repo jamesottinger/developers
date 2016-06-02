@@ -1,39 +1,42 @@
 # vim: set et ts=2 sw=2 tw=80 :
-name: Zones
-base_path: /zones
+name: DNS Zones
+base_path: /dnszones
 description: >
-  Zone endpoints provide a means of managing the DNS <a href="#object-zones">
-  Zone objects</a> on your account.
+  DNS Zone endpoints provide a means of managing the DNS <a href="#object-dnszone">
+  DNS Zone objects</a> on your account.
+
+  Note: the validation rules for DNS records are too complicated to document
+  here. We'll just direct you to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
 endpoints:
-  zones:
+  dnszones:
     type: list
-    resource: zones
+    resource: dnszones
     authenticated: true
     description: >
-      Manage the collection of Zones your account may access.
+      Manage the collection of DNS Zones your account may access.
     methods:
       GET:
-        oauth: zones:view
+        oauth: dnszones:view
         description: >
-          Returns a list of Zones.
+          Returns a list of <a href="#object-dnszone">DNS Zones</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
-                https://$api_root/$version/zones
+                https://$api_root/$version/dnszones
           python: |
             import linode
             TODO
       POST:
-        oauth: zones:create
+        oauth: dnszones:create
         description: >
-          Create a Zone.
+          Create a DNS Zone.
         params:
-          zone:
+          dnszone:
             description: >
-              The zone name.
+              The DNS Zone name.
           type:
             description: >
-              Master or slave Zone.
+              DNS Zone <a href="#object-zone_type-enum">type</a> as master or slave.
           soa_email:
             optional: true
             description: >
@@ -41,11 +44,11 @@ endpoints:
           description:
             optional: true
             description: >
-              A description to keep track of this Zone.
+              A description to keep track of this DNS Zone.
           refresh_sec:
             optional: true
             description: >
-              Time interval before the Zone should be refreshed, in seconds.
+              Time interval before the DNS Zone should be refreshed, in seconds.
           retry_sec:
             optional: true
             description: >
@@ -55,7 +58,7 @@ endpoints:
             optional: true
             description: >
               Time value that specifies the upper limit on
-                the time interval that can elapse before the Zone is no
+                the time interval that can elapse before the DNS Zone is no
                 longer authoritative, in seconds.
           ttl_sec:
             optional: true
@@ -65,25 +68,25 @@ endpoints:
           status:
             optional: true
             description: >
-              The status of the Zone; it can be disabled, active, or edit_mode.
+              The status of the DNS Zone; it can be disabled, active, or edit_mode.
           master_ips:
             optional: true
             description: >
-              An array of IP addresses for this Zone.
+              An array of IP addresses for this DNS Zone.
           axfr_ips:
             optional: true
             description: >
-              An array of IP addresses allowed to AXFR the entire Zone.
+              An array of IP addresses allowed to AXFR the entire DNS Zone.
           display_group:
             optional: true
             description: >
-              A display group to keep track of this Zone.
+              A display group to keep track of this DNS Zone.
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
                 -H "Authorization: token $TOKEN" \
                 -X POST -d '{
-                    "zone": "example.com",
+                    "dnszone": "example.com",
                     "type": "master",
                     "soa_email": "admin@example.com",
                     "description": "Example Description",
@@ -96,35 +99,36 @@ endpoints:
                     "axfr_ips": ["44.55.66.77"],
                     "display_group": "Example Display Group"
                 }'
-                https://$api_root/$version/zones
+                https://$api_root/$version/dnszones
           python: |
             import linode
             TODO
-  zones/:id:
+  dnszones/:id:
     authenticated: true
-    resource: zones
+    resource: dnszone
     methods:
       GET:
-        oauth: zones:view
+        oauth: dnszones:view
         description: >
-          Returns information for the Zone identified by :id.
+          Returns information for the <a href="#object-dnszone">DNS Zone</a>
+          identified by :id.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
-                https://$api_root/$version/zones/$zone_id
+                https://$api_root/$version/dnszones/$dnszone_id
           python: |
             import linode
             TODO
       PUT:
-        oauth: zones:modify
+        oauth: dnszones:modify
         description: >
-          Modifies a given Zone.
+          Modifies a given DNS Zone.
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
               -H "Authorization: token TOKEN" \
               -X PUT -d '{
-                "zone": "examplechange.com",
+                "dnszone": "examplechange.com",
                 "description": "The changed description",
                 "display_group": "New display group",
                 "status": "edit_mode",
@@ -136,54 +140,55 @@ endpoints:
                 "refresh_sec": 14402,
                 "ttl_sec": 3602
               }'
-              https://$api_root/$version/zones/$zone_id
+              https://$api_root/$version/dnszones/$dnszone_id
           python: |
             import linode
             TODO
       DELETE:
-        oauth: zones:modify
+        oauth: dnszones:modify
         dangerous: true
         description: >
-          Deletes the zone. This action cannot be undone.
+          Deletes the DNS zone. This action cannot be undone.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
                 -X DELETE
-                https://$api_root/$version/zones/$zone_id
+                https://$api_root/$version/dnszones/$dnszone_id
           python: |
             import linode
             TODO
-  zones/:id/records:
+  dnszones/:id/records:
     type: list
-    resource: zonerecords
+    resource: dnszonerecords
     authenticated: true
     description: >
-      Manage the collection of Zone Records your account may access.
+      Manage the collection of DNS Zone Records your account may access.
     methods:
       GET:
-        oauth: zones:view
+        oauth: dnszones:view
         description: >
-          Returns a list of Zone Records.
+          Returns a list of <a href="#object-dnszonerecord">DNS Zone Records</a>.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
-                https://$api_root/$version/zones/$zone_id/records
+                https://$api_root/$version/dnszones/$dnszone_id/records
           python: |
             import linode
             TODO
       POST:
-        oauth: zones:create
+        oauth: dnszones:create
         description: >
-          Create a Zone Record.
+          Create a DNS Zone Record.
         params:
           type:
             description: >
-              Type of record (A/AAAA, NS, MX, CNAME, TXT, SRV).
+              <a href="#object-zone-record-types-enum">Type</a> of record.
           name:
             optional: true
             description: >
               The hostname or FQDN. When type=MX the subdomain to
               delegate to the Target MX server.
+            limit: 1-100 characters
           target:
             optional: true
             description: >
@@ -227,29 +232,30 @@ endpoints:
                     "target": "123.456.789.101",
                     "name": "sub.example.com"
                 }'
-                https://$api_root/$version/zones/$zone_id/records
+                https://$api_root/$version/dnszones/$dnszone_id/records
           python: |
             import linode
             TODO
-  zones/:id/records/:id:
+  dnszones/:id/records/:id:
     authenticated: true
-    resource: zonerecords
+    resource: dnszonerecords
     methods:
       GET:
-        oauth: zones:view
+        oauth: dnszones:view
         description: >
-          Returns information for the Zone record identified by ":id".
+          Returns information for the <a href="#object-dnszonerecord">DNS Zone
+          Record</a> identified by ":id".
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
-              https://$api_root/$version/zones/$zone_id/records/$record_id
+              https://$api_root/$version/dnszones/$dnszone_id/records/$record_id
           python: |
             import linode
             TODO
       PUT:
-        oauth: zones:modify
+        oauth: dnszones:modify
         description: >
-          Modifies a given Zone Record.
+          Modifies a given DNS Zone Record.
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
@@ -258,20 +264,20 @@ endpoints:
                     "target": "123.456.789.102",
                     "name": "sub2.example.com"
               }'
-              https://$api_root/$version/zones/$zone_id/records/$record_id
+              https://$api_root/$version/dnszones/$dnszone_id/records/$record_id
           python: |
             import linode
             TODO
       DELETE:
-        oauth: zones:modify
+        oauth: dnszones:modify
         dangerous: true
         description: >
-          Deletes the Zone Record. This action cannot be undone.
+          Deletes the DNS Zone Record. This action cannot be undone.
         examples:
           curl: |
             curl -H "Authorization: token $TOKEN" \
               -X DELETE
-              https://$api_root/$version/zones/$zone_id/records/$record_id
+              https://$api_root/$version/dnszones/$dnszone_id/records/$record_id
           python: |
             import linode
             TODO

@@ -34,6 +34,11 @@ schema:
     _value: 1000
     _description: Cost (in cents) per month
     _filterable: true
+  ram:
+    _type: integer
+    _value: 1024
+    _description: Amount of RAM included in this service
+    _filterable: true
   service_type:
     _type: enum
     _subtype: Service Type

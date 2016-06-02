@@ -13,7 +13,7 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns a list of distributions.
+          Returns a list of <a href="#object-distribution">distributions</a>.
         examples:
           curl: |
             curl https://$api_root/$version/distributions
@@ -28,7 +28,8 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns information about this distribution.
+          Returns information about this <a href="#object-distribution">
+          distribution</a>.
         examples:
           curl: |
             curl https://$api_root/$version/distributions/$distribution_id
@@ -43,7 +44,8 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns a list of recommended distributions.
+          Returns a list of recommended <a href="#object-distribution">
+          distributions</a>.
         examples:
           curl: |
             curl https://$api_root/$version/distributions/recommended

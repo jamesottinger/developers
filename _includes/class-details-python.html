@@ -1,0 +1,114 @@
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        <h3>{{ include.class.name }}<span id="{{ include.class.name | remove: " " }}">&nbsp;</span></h3>
+    </div>
+    <div class='col-lg-6 right'>
+        <h3>{{ include.class.name }}</h3>
+    </div>
+</div>
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        {{ include.class.desc }}
+    </div>
+    <div class='col-lg-6 right'>
+        {% highlight python %}{{ include.class.import}}{% endhighlight %}
+    </div>
+</div>
+{% assign obj = site.data.objects[include.class._object] %}
+{% if obj %}
+    {% include class-attributes-python.html obj=obj pyattrs=include.class._pylib_attributes %}
+{% endif %}
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        <h5>
+            constructor: {{ include.class.constructor.name }}(
+                {% for p in include.class.constructor.parameters %}
+                    {{ p[0] }}{% if p[1]._keyword %}={{ p[1]._default }}{% endif %}{% if forloop.last != true %},{% endif %}
+                {% endfor %}
+            )
+        </h5>
+    </div>
+</div>
+<div class="row reference white">
+    <div class='col-lg-6 left'>
+        <table class="table table-striped">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            {% for param in include.class.constructor.parameters %}
+            <tr>
+                <td width="30%">
+                    {{ param[0] }}
+                    {% if param[1]._keyword %}
+                        <br/>
+                        <span class="text-muted">{{ param[1]._default }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ param[1].desc }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class='col-lg-6 right'>
+        <table><tr><td>
+        <h5>constructor</h5></td></tr>
+        <tr><td>
+        {% highlight python %}{{ include.class.constructor.example }}{% endhighlight %}
+        </td></tr></table>
+    </div>
+</div>
+{% for m in include.class.methods %}
+    {% assign mname = m[0] | replace:'*'' %}
+    <div class="row reference white">
+        <div class='col-lg-6 left'>
+            <h5>
+                {{ mname }}(
+                    {% for p in m[1].parameters %}
+                        {{ p[0] }}{% if p[1]._keyword %}={{ p[1]._default }}{% endif %}{% if forloop.last != true %},{% endif %}
+                    {% endfor %}
+                )
+            </h5>
+            <p>{{ m[1].desc }}</p>
+        </div>
+    </div>
+    <div class="row reference white">
+        <div class='col-lg-6 left'>
+            <table class="table table-striped">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                {% for param in m[1].parameters %}
+                <tr>
+                    <td width="30%">
+                        {{ param[0] }}
+                        {% if param[1]._keyword %}
+                            <br/>
+                            <span class="text-muted">{{ param[1]._default }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ param[1].desc }}</td>
+                </tr>
+                {% endfor %}
+                {% if m[1].returns %}
+                <tr>
+                    <td><span style="font-weight: bold">Returns:</span></td>
+                    <td>{{ m[1].returns }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+        <div class='col-lg-6 right'>
+            <table><tr><td>
+            <h5>{{ include.class.name }}.{{ mname }}</h5></td></tr>
+            <tr><td>
+            {% highlight python %}{{ m[1].example }}{% endhighlight %}
+            </td></tr></table>
+        </div>
+    </div>
+{% endfor %}

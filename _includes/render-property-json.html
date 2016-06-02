@@ -39,6 +39,7 @@
             </span>
         {% else %}
             {% include render-object-json.html obj=info endswith=include.endswith %}
+            {{ include.endswith }}
         {% endcase %}
     {% else %}
         {% include render-object-json.html obj=info endswith=include.endswith %}{{ include.endswith }}

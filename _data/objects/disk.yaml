@@ -15,12 +15,13 @@ schema:
     _value: Ubuntu 14.04 Disk
     _description: Human-friendly disk name
     _filterable: true
-  status:
+    _limit: 1-50 characters
+  state:
     _type: enum
-    _subtype: Status
-    _value: London, UK
+    _subtype: State
+    _value: ok
     _description: Status of the disk
-    _filterable: true
+    _filterable: false
   size:
     _editable: true
     _type: integer
@@ -39,9 +40,18 @@ schema:
     _type: datetime
     _value: "2015-09-29T11:21:01"
 enums:
-  Status:
-    ready: If this disk is ready to attach to your Linode
-    being_deleted: If this disk is currently being deleted
+  State:
+    ok: No disk jobs are running
+    deleting: This disk is being deleted
+    creating: This disk is being created
+    migrating: This disk is being migrated
+    cancelling-migration: The disk migration is being cancelled
+    duplicating: This disk is being duplicated
+    resizing: This disk is being resized
+    restoring: This disk is being restored
+    copying: This disk is being copied
+    freezing: This disk is being frozen
+    thawing: This disk is being thawed
   Filesystem:
     raw: No filesystem, just a raw binary stream
     swap: Linux swap area

@@ -17,7 +17,7 @@
                     <i class="fa fa-lock"></i> Authenticated
                 </small>
             {% endif %}
-            <span class="anchor" id="ep-{{ endpoint[0] }}">&nbsp;</span>
+            <span class="anchor" id="ep-{{ endpoint[0] | replace: '/', '-' | replace: ':', '' }}-methods">&nbsp;</span>
         </h4>
     </div>
 </div>
@@ -34,6 +34,7 @@
             <div class="col-md-12">
                 <h5 style="margin-top: 0; border: none" >
                     {{ method[0] }}
+                    <span class="anchor" id="ep-{{ endpoint[0] | replace: '/', '-' | replace: ':', '' }}-{{method[0]}}">&nbsp;</span>
                     {% if method[1].oauth %}
                     <br />
                     <small class="text-muted">
@@ -47,7 +48,6 @@
                         <i class="fa fa-money"></i> Will cost money
                     </small>
                     {% endif %}
-                    <span class="anchor" id="ep-{{ endpoint[0] }}-{{method[0]}}">&nbsp;</span>
                 </h5>
                 <p>
                 {{ method[1].description }}
@@ -100,6 +100,9 @@
                                 </td>
                                 <td>
                                     {{ param[1].description }}
+                                    {% if param[1].limit %}
+                                    Must be {{ param[1].limit }}.
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

@@ -11,200 +11,162 @@ table {
 }
 </style>
 
-With the release of API 4, Linode has also released an official python library.  This guide
-will walk you through using the library to make single-user and multi-user applications
-that take advantage of all of the features of the new Linode API.
+With the release of API 4, Linode has also released an official python library.  This guide is a simple introduction to working with
+the python library - if you're looking for comprehensive documentation, please refer to the [Python Library Reference](/libraries/python-reference).
 
 ## Getting Started
 
 The official Linode python library is open-source on [github](http://github.com/Linode/python-linode-api), and can be installed through
 pypi with:
 
-```pip install linode-api```
-
-## Getting an OAuth Token
-
-When working on an application that only deals with your own Linodes, acquiring an OAuth token is
-easy.  Just log in to [login.alpha.linode.com](https://login.alpha.linode.com), click 'Manage Applications and Tokens',
-then click 'Generate New Token' and copy the token displayed on the screen.
-
-#### Generating OAuth Tokens
-
-Skip this section if you'd rather just use a personal access token.
-
-If you need to generate an OAuth token using a client ID and client secret (as you would in an
-application where you manage Linodes for a user) use the LinodeLoginClient.  This requires
-you to have set up an OAuth application at {{ site.login_root }}.
-
-{% highlight python %}
->>> from linode import LinodeLoginClient, OAuthScopes
->>> login_client = LinodeLoginClient('my-client-id', 'my-client-secret', base_url='https://login.alpha.linode.com')
->>> login_client.generate_login_url(scopes=OAuthScopes.all)
-'https://login.alpha.linode.com/oauth/authorize?client_id=my-client-id&scopes=%2A'
+{% highlight shell %}
+pip install linode-api
 {% endhighlight %}
 
-Visit this URL in a browser and complete the login process.  After a successful login, you will
-be redirected to a page with `code=` in the query string - get this value to continue.
-
-{% highlight python %}
->>> token, scopes = login_client.finish_oauth('code-from-query-string')
-{% endhighlight %}
-
-In a real-world scenario, your application would redirect users through to the login service, then
-receive the callback once login was complete and capture the code from the query string.  For a
-more practical example, see the [multi-user example application](https://github.com/linode/python-linode-api/tree/master/examples/install-on-linode).
+In order to make requests to the API, you're going to need an OAuth Token.  If you haven't already, sign up for the [API V4 Alpha](https://alpha.linode.com),
+then login to the [Alpha Login Service](https://login.alpha.linode.com), click "Manage personal access tokens" and "Generate a
+new token".  This will generate and display a valid OAuth Token with access to your entire (alpha) account, which we will use for this
+tutorial.
 
 ## Connecting to the API
 
-Once you have an OAuth token, connecting to the API is as simple as creating a `LinodeClient`.  This
-client will handle all communications to the API for a given user.
+The Python Library connects to the Linode API V4 using the `LinodeClient` class, which expects an OAuth Token in his constructor.  In this
+example we'll also provide a `base_url` keyword argument, since we're talking to the alpha environment.
+
+_All example code in this guide is executed in a python shell._
 
 {% highlight python %}
->>> from linode import LinodeClient
->>> client = LinodeClient('my-token', base_url='https://api.alpha.linode.com/v4')
+>>> import linode
+>>> client = linode.LinodeClient('my-oauth-token', base_url='https://api.alpha.linode.com/v4')
 {% endhighlight %}
 
-## Objects
+## Requirements for Creating a Linode
 
-The Linode python library is object-oriented, and every API resource has an object that
-represents it.  If you know the ID of an object, it can be created with a `LinodeClient` and ID and
-used as you please:
+In order to create a Linode, we need a Datacenter (which defines where it will live) and a Service (which defines the size of the Linode).
+Since we don't know the IDs of any objects in the API, we'll list them to see what we want:
 
 {% highlight python %}
->>> from linode import Linode
->>> linode = Linode(client, 'linode_123')
+>>> for d in client.get_datacenters():
+...   print(d.label)
+...
+Newark, NJ
 {% endhighlight %}
 
-Each object has attributes that match those documented in [the API spec](/reference/#objects), and only those
-marked 'editable' may be changed.  All objects share the following:
-
-| id | The id of this object in the Linode API |
-| save | This function calls PUT on this object, saving any changes to mutable fields |
-| invalidate | This function expires all attributes of the object except identifiers so they will be refreshed |
-| delete | This function calls DELETE on this object.  Use with caution |
-
-Objects are lazy-loaded, so creating the object will not reach out to the API until a field it doesn't
-have is referenced.
-
-#### Derived Objects
-
-Some objects contain references to other objects.  A Linode has Disks, for example, so a Disk is a derived object.
-If an endpoint for a resource references another resource's ID, the latter object's ID must be provided when
-creating a new instance of the former.
+Looks like we only have one option in the alpha environment - so we'll just grab it and move on.
 
 {% highlight python %}
->>> from linode import Disk
->>> disk = Disk(client, 'disk_123', 'linode_123')
+>>> dc = client.get_datacenters()[0]
 {% endhighlight %}
 
-If a particular attribute of an object consists of a list of derived objects, these derived objects can be
-accessed via the parent object.  To do this using the REST API, simply append the attribute name to the
-parent object's URL (e.g. `/linodes/linode_123/disks`).  To access this in the python client, the
-object attribute is provided as a Python attribute of the same name.
+For a Service, we know that we want "Linode 1024".  Since we know the service name, we don't need to list all services, we
+can just ask for it by filtering the service list:
 
 {% highlight python %}
->>> linode = Linode(client, 'linode_123')
->>> disks = linode.disks
+>>> serv = client.get_services(linode.Service.label == "Linode 1024")[0]
 {% endhighlight %}
 
-## Lists of Objects
+The Python Library uses SQLAlchemy-like filtering syntax - any field [marked filterable](/libraries/python-reference/#api-objects) can be searched by in this manner.  Since we
+searched a listing endpoint, we need to take the first result (which in this case is the only one) of the returned list.
 
-All root API endpoints (`/linodes`, `/zones`, `/datacenters`, etc) can be accessed as a list from the
-LinodeClient object:
+## Making a Linode
+
+Since we have everything we need to make a Linode, we can create one with the LinodeClient:
 
 {% highlight python %}
->>> datacenters = client.get_datacenters()
->>> linodes = client.get_linodes()
+>>> l = client.create_linode(serv, dc)
 {% endhighlight %}
 
-#### Filtering
-
-All list methods support filtering in a SQLAlchemy-like syntax.  All API object classes have
-attributes for all properties listed as filterable in the object reference.  Here is an example.
+And that's it!  Now we've got a fresh new Linode.  Let's check it out:
 
 {% highlight python %}
-# get all linodes in newark
->>> from linode import Datacenter, Linode
->>> newark = client.get_datacenters(Datacenter.label=='Newark')[0]
->>> newark_linodes = client.get_linodes(Linode.datacenter==newark)
->>> foo_linodes = client.get_linodes(Linode.label.contains('foo'), Linode.datacenter == 'datacenter_1')
+>>> l.label
+'linode263'
+>>> l.ip_addresses.public.ipv4
+['97.107.143.33']
+>>> l.state
+'offline'
 {% endhighlight %}
 
-Multiple filters are combined with "and" and "or" (either explicitly or implicitly):
+That's great, but this Linode is empty, and booting it wouldn't make sense, since we created it without disks or a distribution.  Let's make another Linode,
+this time with Debian on it, and boot it so we can ssh in.
+
+## Getting a Distribution
+
+We already know how to retrieve objects from the API, but this time we want something more vague - a Debian template.  Which version?  What are our options?  Let's
+have a look at all of the recommended Debian templates:
 
 {% highlight python %}
->>> foobar_linodes = client.get_linodes((Linode.label.contains('foo')) | (Linode.label.contains('bar')))
->>> from linode import or_
->>> foorbaz_linodes = client.get_linodes(or_(Linode.label.contains('foo'), Linode.label.contains('baz')))
+>>> for d in client.get_distributions(linode.Distribution.vendor == 'Debian', linode.Distribution.recommended == True):
+...   print("{}: {}".format(d.label, d.id))
+...
+Debian 7: distro_130
+Debian 8.1: distro_140
 {% endhighlight %}
 
-In addition to `==` and `contains`, objects can be filtered with the `>`, `<`, `>=`, and `<=` operators.
-
-## Creating Resources
-
-You can create resources with parameters matching the resource's POST endpoint using a `LinodeClient`.
-In the [API Reference](/reference/#ep-linodes) we see that Linode creation requires a Service,
-a Datacenter, and optionally, a source.  Here is an example.
+Great, we have some options.  We can chain filters together to run more complex searches.  Since Debian 8.1 is the newest Debian template available, let's use it.
+We already have the ID, so this time we'll create the Distribution object without querying for it:
 
 {% highlight python %}
->>> from linode import Service, Datacenter, Distribution
->>> serv = client.get_services(Service.label == 'Linode 1024')[0]
->>> dc = client.get_datacenters(Datacenter.label.contains('Newark'))[0]
->>> distro = client.get_distributions(Distribution.vendor == 'Ubuntu')[0]
->>> l, root_pw = client.create_linode(serv, dc, source=distro)
+>>> distro = linode.Distribution(client, 'distro_140')
 {% endhighlight %}
 
-In this example we queried the API for the Service, Datacenter and Distribution we wanted, then
-sent a request to create a Linode with those arguments.  In this case, the create function also
-generated a root password for the Linode, which was returned alongside it. (You can provide
-a root password yourself with the `root_pass` argument, documented in the [API Reference](/reference/#ep-linodes).
-In this case, the function will return only the created Linode).
+We need to give the Distribution object a reference to the LinodeClient so it knows how to talk to the API to populate itself.
 
-In general, required parameters to a POST request are positional arguments of the LinodeClient's create
-methods. And optional arguments are passed as keyword arguments with the same names.  Here are the
-required argument lists:
+## Creating a Linode (with a Distribution)
 
-#### Linodes
+Now that we have a distribution, let's make a new Linode running it!  But first, let's clean up that first Linode that we don't really need:
 
-| service | a Service object |
-| datacenter | a Datacenter object|
+{% highlight python %}
+>>> l.delete()
+True
+{% endhighlight %}
 
-#### StackScripts
+Now that that's gone, we can create a new Linode running Debian 1.8:
 
-| label | a label for the StackScript |
-| script | the stackscript body |
-| distros | a list of Distribution objects this StackScript runs on |
+{% highlight python %}
+>>> l, pw = client.create_linode(serv, dc, source=distro)
+{% endhighlight %}
 
-#### Zones
+This time, we called `create_linode` with a "source" keywork argument.  The source tells the API what to deploy, and it will do 
+"[the right thing](/reference/#ep-linodes-POST)" to give you a working Linode.  Since a Distribution needs a root password and we didn't
+provide one, the client helpfully generaeted one for us and returned it as well.  Let's boot it and wait for it to come online:
 
-| zone | the zone |
-| master | if this zone is master - defaults to True |
+{% highlight python %}
+>>> l.boot()
+True
+>>> while not l.state == 'running':
+...   pass
+...
+>>> l.ip_addresses.public.ipv4
+['97.107.143.34']
+>>> pw
+'663Iso_f1y4Zb5xeClY13fBGdeu5l&f3'
+{% endhighlight %}
 
-### Creating Derived Objects
+`boot()` does just what you'd expect.  Once we've requested a boot, we wait for the Linode's state to be "running".  Since state is a "volatile" attribute of
+a Linode, we can poll it.  At fixed intervals, the value will be updated via a background API request.  Once that loop exists, we can ssh in.
 
-Parent objects have the ability to create derived resources.  This is done
-in the same way as creating top-level objects, except that you use the parent object
-in place of the LinodeClient.
 
-#### Linodes
+{% highlight shell %}
+>>> exit()
+$ ssh root@97.107.143.34
+The authenticity of host '97.107.143.34 (97.107.143.34)' can't be established.
+ECDSA key fingerprint is SHA256:+/zkZlskou45MscmID8Upp5egrBBEssvL0PEx24C5Zw.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '97.107.143.34' (ECDSA) to the list of known hosts.
+root@97.107.143.34's password:
 
-Creating configs
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
 
-| kernel | a Kernel object |
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+root@localhost:~#
+{% endhighlight %}
 
-Creating disks
+## Further Reading
 
-| size | the size of the new disk |
-
-#### Zones
-
-Creating zone records
-
-| record_type | the type of zone record to create |
-
-## Examples
-
-Here is a list of example applications using the python library:
-
-[**Multi-User Application**](https://github.com/linode/python-linode-api/tree/master/examples/install-on-linode) - an application that creates a new Linode running your software for a
-user through an "Install on Linode" button.
+Now that you've had an overview of the features and concepts in the Python Library, check out the [Python Library Reference](/libraries/python-reference) for in-depth documentation,
+or look at the [Install on Linode sample project](https://github.com/linode/python-linode-api/tree/master/examples/install-on-linode) for an example multi-user
+application using the Library.

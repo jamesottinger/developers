@@ -13,16 +13,23 @@ endpoints:
     methods:
       GET:
         description: >
-          Returns list of datacenters.
+          Returns list of <a href="#object-datacenter">datacenters</a>.
         examples:
           curl: |
             curl https://$api_root/$version/datacenters
           python: |
             import datacenters
             TODO
+  datacenters/:id:
+    type: resource
+    resource: datacenter
+    description: >
+      Return a particular datacenter.
+    methods:
       GET:
         description: >
-          Returns information about this datacenter.
+          Returns information about this <a href="#object-datacenter">
+          datacenter</a>.
         examples:
           curl: |
             curl https://$api_root/$version/datacenters/$datacenter_id

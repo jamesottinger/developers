@@ -1,6 +1,6 @@
 # developers.linode.com
 
-This is the Linode developer portal. It's a jekyll site hosted on GitHub Pages.
+This is the [Linode developer portal](https://developers.linode.com/). It's a jekyll site hosted on GitHub Pages.
 Included here are:
 
 * API documentation
