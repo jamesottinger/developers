@@ -207,7 +207,6 @@ enums:
     deleting: The Linode is being deleted
     migrating: The Linode is being migrated to a new host/datacenter
   BackupStatus:
-    paused: Backups are temporarily paused
     pending: Backup is in the queue and waiting to begin
     running: Linode in the process of being backed up
     needsPostProcessing: Backups awaiting final integration into existing backup data
