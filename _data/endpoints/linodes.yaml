@@ -581,3 +581,53 @@ endpoints:
           python: |
             import linode
             TODO
+  linodes/:id/backups/:id/restore:
+    type: action
+    authenticated: true
+    description: >
+      Restores a backup to a Linode
+    methods:
+      POST:
+        oauth: linodes:create
+        dangerous: true
+        params:
+          linode:
+            description: >
+              The ID of the Linode to restore a backup to
+            type: linode
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST -d '{
+                    "linode": "linode_1234"
+                }' \
+                https://$api_root/$version/linodes/$linode_id/backups/$backup_id/restore
+          python: |
+            import linode
+            TODO
+  linodes/:id/backups/:id/snapshot:
+    type: action
+    authenticated: true
+    description: >
+      Takes a snapshot backup of a Linode
+    methods:
+      POST:
+        oauth: linodes:delete
+        dangerous: true
+        params:
+          label:
+            optional: true
+            description: >
+              Human-friendly label for this snapshot. Must be 1-50 characters.
+        examples:
+          curl: |
+            curl -H "Content-Type: application/json" \
+                -H "Authorization: token $TOKEN" \
+                -X POST -d '{
+                    "label": "Linode_123 snapshot",
+                }' \
+                https://$api_root/$version/linodes/$linode_id/backups/$backup_id/snapshot
+          python: |
+            import linode
+            TODO
