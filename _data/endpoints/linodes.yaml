@@ -108,13 +108,19 @@ endpoints:
       PUT:
         oauth: linodes:modify
         description: >
-          Edits this Linode.
+          Edits this Linode, including backups scheduling
         examples:
           curl: |
             curl -H "Content-Type: application/json" \
                 -H "Authorization: token $TOKEN" \
                 -X PUT -d '{
-                  "label": "newlabel"
+                  "label": "newlabel",
+                  "backups": {
+                    "schedule": {
+                      "day": "Tuesday",
+                      "window": "W8",
+                    }
+                  }
                 }' \
                 https://$api_root/$version/linodes/$linode_id
           python: |
@@ -548,7 +554,8 @@ endpoints:
         oauth: linodes:delete
         dangerous: true
         description: >
-          Creates snapshot backup of a Linode
+          Creates snapshot backup of a Linode. Only one snapshot per Linode. Creating
+          a new snapshot will replace the current snapshot.
         params:
           label:
             optional: true

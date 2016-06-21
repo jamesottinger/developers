@@ -52,39 +52,25 @@ schema:
         _value: 80
         _description: Threshold as a percentage of your quota
   backups:
-    _description: Displays if backups are enabled, and last backup datetime if applicable
+    _description: Displays if backups are enabled, schedule of backups, and last backup datetime if applicable. Window
+      is prefixed by "W" followed by in integer representing the window's start time in 24 hour format. "Window" is two
+      hours in length and valid values are even numbered integers from 0 to 22. For example, 0200-0400 window is "W2",
+      1200-1400 window is "W12", 2000-2200 window is "W20", etc
     enabled:
       _type: boolean
       _value: true
     last_backup:
       _description: If enabled, when last backup was successfully completed
-      create_dt:
-        _type: datetime
-        _value: "2015-10-06T00:27:08"
-      duration:
-        _type: integer
-        _value: 0
-      finish_dt:
-        _type: datetime
-        _value: "2015-10-06T01:09:08"
-      id:
+      _type: datetime
+      _value: "2015-10-06T00:27:08"
+    schedule:
+      _description: If backups enabled, displays the day and window for backups
+      day:
         _type: string
-        _value: "backup_26083011"
-      message:
+        _value: "Sunday"
+      window:
         _type: string
-        _value: "Backup completed."
-      status:
-        _type: enum
-        _subtype: BackupStatus
-        _value: "successful"
-        _filterable: false
-        _pylib_volatile: true
-      type:
-        _type: enum
-        _subtype: BackupType
-        _value: "auto"
-        _filterable: false
-        _pylib_volatile: true
+        _value: "W8"
   created:
     _type: datetime
     _value: "2015-09-29T11:21:01"
